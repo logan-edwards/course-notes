@@ -1,0 +1,220 @@
+\setlength{\columnsep}{0.1in}
+
+\begin{center}\section*{References}\end{center}
+
+\begin{multicols*}{2}[]
+
+\textbf{Thermodynamics}
+
+Ideal Gas Relationships
+\vspace{-1em}
+\begin{enumerate}
+\item[] Ideal Gas Law \[PV=mRT \]\[ Pv = RT\]\[PV = nR_u T\]
+\item[] Compressibility Factor \[Pv = ZRT\]
+\item[] Internal Energy of Ideal Gas \[\Delta u = \int_{T_1}^{T_2} c_v(T)dT \approx c_{v,avg}\Delta T\]
+\item[] Enthalpy of Ideal Gas \[\Delta h = \int_{T_1}^{T_2} c_p(T)dT \approx c_{p,avg}\Delta T\]
+\item[] Entropy of Ideal Gas \[\Delta S_\text{ideal gas} = \underbrace{c_v \ln (T_2 / T_1) + R\ln (V_2 / V_1)}_{c_v\text{ at average temperature}}\]
+\[=\underbrace{c_p\ln (T_2 / T_1) - R\ln (P_2 / P_1)}_{c_p\text{ at average temperature}}\]
+\end{enumerate}
+\vspace{-1em}
+Isentropic Ideal Gas Relationships
+\vspace{-1em}
+\begin{enumerate}
+\item[]\[\left(\frac{T_2}{T_1}\right)_{s=\text{const}} = \left(\frac{v_1}{v_2}\right)^{k-1}\]
+
+\item[]\[\left(\frac{T_2}{T_1}\right)_{s=\text{const}} = \left(\frac{P_2}{P_1}\right)^{(k-1)/k}\]
+
+\item[]\[\left(\frac{P_2}{P_1}\right)_{s=\text{const}} = \left(\frac{v_1}{v_2}\right)^{k}\]
+\end{enumerate}
+\vspace{-1em}
+Energy Balances
+\vspace{-1em}
+\begin{enumerate}
+\item[] Nozzle and Diffuser \[\dot m \left(h_1 + \frac{v_1^2}{2}\right) = \dot m \left(h_2 + \frac{v_2^2}{2}\right)\]
+\item[] Compressor \[\dot m h_1 + W_\text{in} = \dot m h_2\]
+\item[] Pump (liquids only) \[\dot m h_1 + V(P_2-P_1) = \dot m h_2\]
+\item[] Turbine \[\dot m h_1 = \dot m h_2 + W_\text{out}\]
+\end{enumerate}
+Carnot Efficiency
+\vspace{-1em}
+\begin{enumerate}
+\item[] Heat Engine \[\eta = \frac{T_H-T_L}{T_H}\]
+\item[] Heat Pump Coefficient of Performance \[\text{COP}_\text{HP} = \frac{T_H}{T_H-T_L}\]
+\item[] Refrigerator Coefficient of Performance \[\text{COP}_\text{R} = \frac{T_L}{T_H-T_L}\]
+\end{enumerate}
+\vspace{-1em}
+Heat-Entropy Relationship
+\vspace{-1em}
+\begin{enumerate}
+    \item[] \[\Delta S = \frac{Q}{T_0}\]
+    \item[] \[Q = \int_{T_1}^{T_2} TdS\]
+\end{enumerate}
+\vspace{-1em}
+Isentropic Efficiency
+\vspace{-1em}
+\begin{enumerate}
+\item[] Turbine \[\eta = \frac{W_a}{W_s} = \frac{h_1-h_{2a}}{h_1-h_{2s}}\]
+\item[] Compressor \[\eta = \frac{W_s}{W_a} = \frac{h_{2s}-h_1}{h_{2a}-h_1} = \underbrace{\frac{V(P_2-P_1)}{h_{2a}-h_1}}_\text{Pumps}\]
+\end{enumerate}
+\vspace{-1em}
+Cycle Efficiency
+\vspace{-1em}
+\begin{enumerate}
+\item[] Otto Cycle \[\eta = 1 - \frac{1}{r^{k-1}}\]
+\item[] Diesel Cycle \[\eta = 1 - \frac{1}{r^{k-1}}\left[\frac{r_c^k - 1}{k(r_c-1)}\right]\]
+\item[] Brayton Cycle \[\eta = 1 - \frac{1}{r_p^{(k-1)/k}}\]
+\item[] Rankine Cycle \[\eta = 1 - \frac{Q_\text{out}}{Q_\text{in}}\]
+\item[] Backwork Ratio \[\text{BWR} = \frac{W_\text{in}}{W_\text{out}}\]
+\end{enumerate}
+\end{multicols*}
+
+\begin{multicols*}{2}[]
+\textbf{Statics and Mechanics of Materials}
+
+\vspace{-0.5em}
+Stress
+\vspace{-0.5em}
+\begin{enumerate}
+        \item[] Normal Stress \[\sigma_{zz} = \frac{N}{A} + \frac{M_xy}{I_x} - \frac{M_yx}{I_y}\]
+        \item[] Shear Stress (average) \[\tau_{zx} = \frac{V_x}{A},\ \tau_{zy} = \frac{V_y}{A}\]
+        \item[] Shear Stress due to Torsion \[\tau_{z\theta} = \frac{Tr}{J}\]
+\end{enumerate}
+\vspace{-0.5em}
+Strain
+\vspace{-0.5em}
+\begin{enumerate}
+    \item[] Extensional Strain \[\epsilon = \frac{\sigma}{E} = \frac{\delta}{L_0} \]
+    \item[] Shear Strain \[\gamma = \frac{\tau}{G} = \phi_1 + \phi_2\]
+    \item[] Multiaxial Hooke's Law 
+        \[\epsilon_x = \frac{\sigma_x}{E} - \frac{\nu\sigma_y}{E} - \frac{\nu \sigma_z}{E} + \alpha\Delta T\]
+        \[\epsilon_y = \frac{\sigma_y}{E} - \frac{\nu\sigma_x}{E} - \frac{\nu \sigma_z}{E} + \alpha\Delta T\]
+        \[\epsilon_z = \frac{\sigma_z}{E} - \frac{\nu\sigma_x}{E} - \frac{\nu \sigma_y}{E} + \alpha\Delta T\]
+    \item[] Poisson's Ratio \[E = 2G(1+\nu)\]
+\end{enumerate}
+\vspace{0.5em}
+Extension
+\vspace{-0.5em}
+\begin{enumerate}
+    \item[] Normal Extension \[\delta = \frac{FL_0}{AE}\]
+    \item[] Angle of Torsion \[\phi = \frac{TL}{JG}\]
+\end{enumerate}
+\vspace{-0.5em}
+Centroid Locations
+\vspace{-1em}
+\begin{enumerate}
+    \item[] \[A c_x = \sum A_i\overline{x}_i \iff c_x = \frac{\sum A_i\overline{x}_i}{A}\]
+    \item[] \[A c_y = \sum A_i\overline{y}_i \iff c_y = \frac{\sum A_i\overline{y}_i}{A}\]
+\end{enumerate}
+\vspace{20.5em}
+Area Moments of Inertia
+\vspace{-0.5em}
+\begin{enumerate}
+    \item[] Parallel Axis Theorem \[I_{x'} = I_x +Ad^2\]
+    \item[] Rectangular Section \[I = \frac{1}{12}bh^3\]
+    \item[] Circular Section \[I_x = I_y = \frac{\pi r^4}{4} = \frac{\pi d^4}{64}\]
+    \item[] Circular Section, Normal Axis \[J = \frac{\pi r^4}{2} = \frac{\pi d^4}{32}\]
+\end{enumerate}
+\vspace{-1em}
+Principle Stress and Stress Transformations
+\vspace{-1em}
+\begin{enumerate}
+    \item[] Stress Transformations \[\sigma_{x'} = \frac{\sigma_x + \sigma_y}{2}+ \frac{\sigma_x - \sigma_y}{2}\cos 2\theta + \tau_{xy}\sin2\theta\]
+    \[\sigma_{y'} = \frac{\sigma_x + \sigma_y}{2} - \frac{\sigma_x - \sigma_y}{2}\cos 2\theta - \tau_{xy}\sin2\theta\]
+    \[\tau_{x'y'} = -\frac{\sigma_x -\sigma_y}{2}\sin2\theta + \tau_{xy}\cos2\theta\]
+    \item[] Principle Stresses \[\sigma_{1,2} = \frac{\sigma_x + \sigma_y}{2} \pm \underbrace{\sqrt{\left(\frac{\sigma_x - \sigma_y}{2}\right)^2 + \tau_{xy}^2}}_{\tau_{\text{max}}}\]
+\end{enumerate}
+\vspace{-1em}
+Principle Strain and Strain Transformations
+\vspace{-1em}
+\begin{enumerate}
+    \item[] Strain Transformations \[\epsilon_{x'} = \frac{\epsilon_x + \epsilon_y}{2} + \frac{\epsilon_x-\epsilon_y}{2}\cos(2\theta) + \frac{\gamma_{xy}}{2}\sin(2\theta)\]
+    \[\epsilon_{y'} = \frac{\epsilon_x + \epsilon_y}{2} - \frac{\epsilon_x-\epsilon_y}{2}\cos(2\theta) - \frac{\gamma_{xy}}{2}\sin(2\theta)\]
+    \[\frac{\gamma_{x'y'}}{2} = - \frac{\epsilon_x-\epsilon_y}{2}\sin(2\theta) + \frac{\gamma_{xy}}{2}\cos(2\theta)\]
+    \item[] Principle Strains \[\epsilon_{1,2} = \frac{\epsilon_x+\epsilon_y}{2}\pm \underbrace{\sqrt{\left(\frac{\epsilon_x-\epsilon_y}{2}\right)^2 + \left(\frac{\gamma_{xy}}{2}\right)^2}}_{\gamma_{\text{max}}/2}\]
+    \item[] Strain Gauge Rosette Relationship \[\epsilon_a = \epsilon_x\cos^2\theta_a + \epsilon_y \sin^2\theta_a + \gamma_{xy}\sin\theta_a\cos\theta_a\]
+\end{enumerate}
+\vspace{-1em}
+Bending Deflections
+\vspace{-1em}
+\begin{enumerate}
+    \item[] \[\frac{M}{EI} = \frac{d^2u}{dz^2} = \frac{d\theta}{dz}\]
+\end{enumerate}
+\end{multicols*}
+
+\textbf{Dynamics and Vibrations}
+
+\begin{multicols*}{2}[]
+\vspace{-2em}
+Rectilinear Motion
+\vspace{-2em}
+\begin{enumerate}
+    \item[] \[a = v\frac{dv}{ds} \iff ads = vdv\]
+\end{enumerate}
+\vspace{-1em}
+Coordinate Systems
+\vspace{-1em}
+\begin{enumerate}
+    \item[] Polar Coordinates
+\vspace{-1em}
+    \[\vec{r} = r\hat e_r + z\hat k\]
+\vspace{-1em}
+    \[\vec{v} = \dot r\hat e_r + r\dot\theta \hat e_\theta + \dot z\hat k\]
+\vspace{-1em}
+    \[\vec{a} = (\ddot r - r\dot\theta^2)\hat e_r + (r\ddot\theta + 2\dot r\dot\theta)\hat e_\theta + \ddot z\hat k\]
+\vspace{-1em}
+    \item[] Normal-Tangential Coordinates
+\vspace{-1em}
+    \[\vec{v} = v\hat e_t\]
+\vspace{-1em}
+    \[\vec{a} = \dot v\hat e_t + \frac{v^2}{\rho}\hat e_n\]
+\end{enumerate}
+\vspace{-1em}
+Particle Kinetics
+\vspace{-1em}
+\begin{enumerate}
+    \item[] Newton's 2nd Law \[\sum \vec{F} = m\vec{a_c}\]
+
+    \item[] Work-Energy Theorem \[\underbrace{\int_{\vec{R}_1}^{\vec{R}_2} \vec{F}\cdot d\vec{R}}_\text{Work} = \underbrace{T_2-T_1}_\text{Kinetic energy}\]
+
+    \item[] Work-Energy Theorem, Conservative Forces
+
+    \[T_1+V_1+W_\text{nonconservative} = T_2 +V_2\]
+
+    \item[] Impulse-Momentum Equation \[\int_{t_1}^{t_2}\vec{F}dt = m\vec{v}_2 - m\vec{v}_1\]
+
+    \item[] Coefficient of Restitution, rectilinear speeds \[e:=\frac{v_B' - v_A'}{v_A-v_B}\]
+\end{enumerate}
+
+Particle Vibrations
+\vspace{-1em}
+\begin{enumerate}
+    \item[] Undamped natural frequency, spring-mass system \[\omega_n = \sqrt\frac{k}{m}\]
+    \item[] Equation of Motion, Undamped Vibrations \[\ddot x + \omega_n^2x = 0\]
+    \item[] Solution, Undamped Vibrations \[x(t) = x_0\cos(\omega_n t)+ \frac{\dot x_0}{\omega_n}\sin(\omega_n t)\]
+    \vspace{-2.5em}
+    \item[] Damping ratio, spring-mass damper \[\zeta = \frac{c}{2m\omega_n}\]
+    \item[] Damped frequency \[\omega_d = \omega_n\sqrt{1-\zeta^2}\]
+    \item[] Equation of Motion, Damped Vibrations \[\ddot x + 2\zeta\omega_n \dot x + \omega_n^2x = 0\]
+    \item[] Solution, Damped Vibrations \[x(t) = e^{-\zeta\omega_nt}\left(x_0\cos(\omega_d t)+\frac{\dot x_0+\zeta\omega_nx_0}{\omega_d}\sin(\omega_d t)\right)\]
+    \item[] Time Constant ($t=4\tau \implies 98\%$ decay) \[\tau = \frac{1}{\zeta\omega_n}\]
+\end{enumerate}
+
+\vspace{-1em}
+Planar Rigid Body Kinetics
+\vspace{-1em}
+\begin{enumerate}
+    \item[] General Velocity for Rigid Body (or bodies, points $o$ and $p$) \[\vec{v}_p = \vec{v}_o + \vec{\omega_o}\times\vec{r}_{p/o} + \vec{v}_{p\text{,rel }o}\]
+    \item[] General Acceleration for Rigid Body (or bodies, points $o$ and $p$) \[\vec{a}_p = \vec{a}_o + \vec{\alpha}\times\vec{r}_{p/o}+\vec\omega_o\times(\vec{\omega_o}\times\vec{r}_{p/o}) + 2\vec\omega_o \times \vec{v}_{p\text{,rel }o} + \vec{a}_{p\text{,rel }o}\]
+    \item[] Parallel Axis Theorem (from center of mass $c$ to point $p$ at distance $d$) \[I_p = I_c + md^2\]
+    \item[] Euler's Equation \[\sum M_p = I_p\dot{\vec{\omega}} + \vec{r}_{c/p}\times m\vec{a}_p\]
+\end{enumerate}
+\vspace{-1em}
+Planar Rigid Body Vibrations
+\vspace{-1em}
+\begin{enumerate}
+    \item[] Equation of Motion, Forced Vibrations (with cosine forcing term) \[\ddot x + \frac{c}{m}\dot x + \frac{k}{m}x = \frac{F_0}{m}\cos(\omega_t)\]
+    \item[] Tuning Ratio \[\eta = \frac{\omega}{\omega_n}\text{, where }\eta\approx1 \text{ at resonance}\]
+    \item[] Steady-State Amplitude of Response, Forced Vibrations \[X = \frac{F_0/k_\text{effective}}{\sqrt{(2\zeta\eta)^2+(1-\eta^2)^2}}\]
+    \item[] Steady-State Amplitude of Response, Base Excitations \[X = x_0\sqrt{\frac{1+(2\zeta\eta)^2}{(2\zeta\eta)^2+(1-\eta^2)^2}}\]
+\end{enumerate}
+\end{multicols*}
