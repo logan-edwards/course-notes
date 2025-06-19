@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{cancel}
+\usepackage{pgfplots}
+\usepackage{changepage}
+\usepackage{pgfplots}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{framed}
+\usepackage{array}
+
+\usepackage [english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+
+\usepackage[shortlabels]{enumitem}
+
+\setlength{\parskip}{\baselineskip}%
+\setlength{\parindent}{0pt}%
+
+\newcommand{\laplace}[1]{\mathscr{L}\left\{#1\right\}}
+\newcommand{\laplaceinv}[1]{\mathscr{L}^{-1}\left\{#1\right\}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\gvec}[1]{\overrightarrow{#1}}
+\newcommand{\magnitude}[1]{\left\lvert\left\lvert#1\right\rvert\right\rvert}
+
+\pgfplotsset{compat=1.18}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem*}{Theorem}
+\newtheorem{prop}{Proposition}[section]
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\begin{document}
+
+\definecolor{shadecolor}{gray}{0.9}
+
+\include{references.tex}
+
+\tableofcontents
+
+%% header:
+
+%
+%\begin{center}
+%    Notes from \textbf{SUBJECT ###: Course Title}
+%
+%    taught at University of Michigan, [FALL/WINTER] YEAR
+%
+%    using \textit{Textbook Title}, by Textbook Author(s)
+%\end{center}
+%
+%
+
+
+\include{1 Thermodynamics}
+\include{2 Statics}
+\include{3 Dynamics and Vibrations}
+\include{4 Design and Manufacturing}
+
+\end{document}
