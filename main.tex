@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{cancel}
+\usepackage{pgfplots}
+\usepackage{changepage}
+\usepackage{pgfplots}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{amscd}
+
+\usepackage[shortlabels]{enumitem}
+
+\setlength{\parskip}{\baselineskip}%
+\setlength{\parindent}{0pt}%
+
+\newcommand{\laplace}[1]{\mathscr{L}\left\{#1\right\}}
+\newcommand{\laplaceinv}[1]{\mathscr{L}^{-1}\left\{#1\right\}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\gvec}[1]{\overrightarrow{#1}}
+\newcommand{\magnitude}[1]{\left\lvert\left\lvert#1\right\rvert\right\rvert}
+
+\pgfplotsset{compat=1.18}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{defn}{Definition}
+\newtheorem{prop}{Proposition}[section]
+
+\usepackage{framed}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\begin{document}
+
+\definecolor{shadecolor}{gray}{0.9}
+
+\tableofcontents
+
+\include{1 Linear Algebra}
+\include{2 Real Analysis}
+
+\end{document}

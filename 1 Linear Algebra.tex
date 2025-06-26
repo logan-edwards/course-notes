@@ -1,0 +1,507 @@
+\section{Linear Algebra}
+
+\begin{center}
+    Notes from \textbf{Math 217: Linear Algebra}, 
+    
+    Taken at University of Michigan, Fall 2024
+    
+    using \textit{Linear Algebra with Applications}, by Otto Bretsch
+\end{center}
+
+\subsection{Linear Equations}
+
+\textbf{Linear algebra} begins as the study of solving linear equations. For example, consider a system of three equations given by
+\begin{align*}
+    a_1x + a_2y + a_3z &= d_1 \hspace{1in} (A)\\
+    b_1x + b_2y + b_2z &= d_2 \hspace{1in} (B)\\
+    c_1x + c_2y + c_3z &= d_3 \hspace{1in} (C)
+\end{align*}
+for $a_1,\dots d_3\in\mathbb{R}$. Each equation defines some plane in $\mathbb{R}^3$, depending on the coefficients of $x$, $y$, and $z$. Geometrically, solutions to this system of equations are equivalent to the intersections of these planes; then, solutions may take one of three forms for a linear system in $\mathbb{R}^3$:
+
+\begin{enumerate}
+    \item No solutions. In this case, there are no points on which all three planes intersect. The system of equations defining these planes is said to be \textbf{inconsistent}.
+    \item One solution. In this case, all three planes intersect at a single point in space. The system of equations defining these planes is said to be \textbf{consistent} with a \textbf{unique} solution.
+    \item Infinitely many solutions. In this case, all three planes intersect along a line (or plane) in space. The system of equations defining these planes is said to be \textbf{consistent}, but solutions are \textbf{not unique}.
+\end{enumerate}
+
+In higher dimensions, a more general definition of the solution to a linear system involves the intersection of sets. In particular, let $A$, $B$, and $C$ be sets containing all points defined by the equations (A), (B), and (C) respectively. Then, $A\cap B\cap C$ is the set of solutions. A system of equations is inconsistent only if the solution set is equal to the empty set, $\varnothing$; otherwise, the system is said to be consistent and at least one solution is contained in the intersection of the sets comprising the system.
+
+For convenience, linear systems are often represented as a \textbf{matrix} with $m$ rows and $n$ columns (and therefore dimension $m\times n$). For a linear system in the form previously shown, the \textbf{augmented matrix} representing the system is given by
+\[\left[\begin{array}{ccc|c}
+    a_1 & a_2 & a_3 & d_1\\
+    b_1 & b_2 & b_3 & d_2\\
+    c_1 & c_2 & c_3 & d_3
+\end{array}\right]\]
+A series of row operations may be used to reduce any matrix to a simpler form. The following operations are the same as those allowed on a system of linear equations in standard form, and are also allowed when dealing with augmented matrices:
+\begin{enumerate}
+    \item Multiply a row by a scalar.
+    \item Subtract a multiple of one row from another.
+    \item Swap the position of any two rows.
+\end{enumerate}
+When a matrix $A$ is in its simplest form, it is said to be in \textbf{reduced row echelon form}, denoted rref$(A)$. rref$(A)$ the above augmented matrix may be similar to the form \[\left[\begin{array}{ccc|c}
+    1 & 0 & 0 & k_1\\
+    0 & 1 & 0 & k_2\\
+    0 & 0 & 1 & k_3
+\end{array}\right]\]
+Sometimes, it may be impossible to reduce a matrix directly to this form; in this case, there may be some constants located above the diagonal.
+
+The \textbf{rank} of a matrix is defined loosely to be the number of leading $1$s in the reduced row echelon form of the coefficient matrix. A square coefficient matrix which is of \textbf{full rank} (as many $1$s as variables as equations) has one unique solution. 
+
+Sometimes, equations may "drop out" of a system. This is the case when two rows (equations) are \textbf{linearly dependant}; that is to say, they may be written as a \textbf{linear combination} of each other. For vectors (any object which may be multiplied by a scalar and added to another vector of equal size) to be \textbf{linearly independent}, $\vec{v_1} \neq k\vec{v_2},\ k\in\mathbb{R}$. Then, computing whether a vector $\vec{w} = \begin{bmatrix}
+    w_1\\
+    \vdots\\
+    w_n
+\end{bmatrix}$ is a linear combination of $\vec{v_1},\dots\vec{v_n} = \begin{bmatrix}
+    v_{11}\\
+    \vdots\\
+    v_{1n}
+\end{bmatrix},\dots,\begin{bmatrix}
+    v_{n1}\\
+    \vdots\\
+    v_{nn}
+\end{bmatrix}$, the question is simply whether $\vec{w} = x_1\vec{v_1}+\dots+x_n\vec{v_n}$ for some $x_1,\dots,x_n$. But this is simply a linear system given by \[\begin{cases}
+    w_1 &= x_1v_{11} + \dots +x_nv_{n1}\\
+    &\vdots\\
+    w_n &= x_1v_{1n} + \dots + x_nv_{nn}
+\end{cases}\] and therefore by the augmented matrix \[\left[\begin{array}{ccc|c}
+v_{11} & \dots & v_{n1} & w_1\\
+\vdots & \ddots & \vdots & \vdots\\
+v_{1n} & \dots & v_{nn} & w_n
+\end{array}\right]\]
+Then, the columns of a matrix are simply vectors. In particular, a matrix $A$ with $m$ rows and $n$ columns may be written with $n$ vectors of length $m$: \[A = \left[\begin{array}{ccc}
+    | &  & |\\
+    \vec{v_1} & \dots & \vec{v_n}\\
+    | &  & |
+\end{array}\right]\] The product $A\vec{x}$ is given by the product of $\vec{x}$ with the rows of $A$:
+\[A\vec{x} = \left[\begin{array}{ccc}
+    a_{11} & \dots & a_{1n}\\
+    \vdots & \ddots & \vdots\\
+    a_{m1} & \dots & a_{mn}
+\end{array}\right]\left[\begin{array}{c}
+     x_1  \\
+     \vdots\\
+     x_n
+\end{array}\right] = \left[\begin{array}{c}
+     a_{11}x_1 + \dots + a_{1n}x_n  \\
+     \vdots\\
+     a_{m1}x_1 + \dots + a_{mn}x_n
+\end{array}\right]\]
+This is the special case $A\vec{x} = \vec{b}$, which is equivalent to the augmented matrix formulation which merely suppresses $\vec{x}$ and places $\vec{b}$ at the rightmost column of the matrix. The same operation is allowed on matrices under certain dimensional restrictions. Namely, for $AB$ to be defined for matrices $A$ and $B$, $A$ must have the same number of columns as $B$ has rows, and the product will have as many rows as $A$ and as many columns as $B$. In this case, \[AB = \left[\begin{array}{ccc}
+    | & & |\\
+    A\vec{v_1} & \dots & A\vec{v_n}\\
+    | & & |
+\end{array}\right]\] where $A\vec{v_k}$ is the product of $A$ with the $k$th column of $B$. Alternatively (and more simply for computations), $AB$ may be computed by dotting the rows of $A$ by the columns of $B$. 
+
+\subsection{Linear Transformations}
+
+A \textbf{linear transformation}, $T$, is any mapping which satisfies certain properties of linearity:
+
+\begin{shaded}
+    A \textbf{linear transformation} $T:\mathbb{R}^m\mapsto\mathbb{R}^n$ is a map (function) satisfying both of the following:
+    \begin{enumerate}
+        \item \centering$T(\vec{x}+\vec{y}) = T(\vec{x}) + T(\vec{y})\ \forall\ \vec{x},\vec{y}\in\mathbb{R}^m$.
+        \item \centering$T(a\vec{x}) = aT(\vec{x})\ \forall\ a\in\mathbb{R},\ \vec{x}\in\mathbb{R}^m$.
+    \end{enumerate}
+\end{shaded}
+
+A \textit{matrix} is one such linear transformation. Concurrent linear transformations are also linear (i.e. for matrix $A,B$, if $AB$ is defined, $AB$ is also a linear transformation).
+
+A matrix is \textbf{invertible} only if it is square (i.e. $A$ is $n\times n$) and $\text{rref}(A) = I$ (or equivalently, if $\text{rank}(A) = n$). This is to say, if $A\vec{x} = \vec{b}$ has a unique solution, $A$ is an invertible matrix. This inverse matrix $A^{-1}$ satisfies the property $A^{-1}A = AA^{-1} = I$. 
+
+Finding the inverse of a matrix essentially involves computing $\vec{x} = A^{-1} \vec{b}$. This involves solving the $n\times 2n$ augmented matrix $[\ A\ |\ I\ ]$ until the left hand side is the identity matrix, resulting in $[\ I\ |\ A^{-1}\ ]$. If this process is not possible, $A$ is not invertible. Since any matrix $A$ is unique (i.e. no two matrices produce the exact same transformation; a matrix product or sum may be written as a new, unique matrix), every inverse matrix is also unique. There exists only one $A^{-1}$ such that $AA^{-1} = A^{-1}A = I$.
+
+Given unit vectors $\vec{e_1},\dots \vec{e_n} = \begin{bmatrix}
+    1\\
+    \vdots\\
+    0
+\end{bmatrix},\dots,\begin{bmatrix}
+    0\\
+    \vdots\\
+    1
+\end{bmatrix}$ and $A = \begin{bmatrix}
+    \\
+    \vec{v_1} \dots \vec{v_n}\\
+    \\
+\end{bmatrix}$, multiplication shows that $A\vec{e_1} = \vec{v_1}, \dots, A\vec{e_n} = \vec{e_n}$ such that each unit vector simply returns its associated column of $A$. This gives an \textit{unreasonably useful lemma}: 
+\begin{shaded}
+    \textbf{Unreasonably Useful Lemma}. For a linear transformation matrix $A\in\mathbb{R}^{m\times n}$ and vector $\vec{e_j}\in\mathbb{R}^m$ being the $j$th canonical unit vector in $\mathbb{R}^m$, the $j$th column of $A$ is given by $A\vec{e_j}$.  
+\end{shaded}
+Then, it becomes clear that a linear transformation $A$ essentially transforms each coordinate axis into each column of $A$. It is useful to geometrically interpret some common transformation matrices, using the knowledge that each coordinate axis takes on the form of the columns of the matrix. Common examples are given in $\mathbb{R}^2$:
+
+\begin{itemize}
+    \item[] \textbf{Scaling.} The matrix which scales a vector by $c$ is given by $cI$ where $I$ is the identity matrix. In $\mathbb{R}^2$, this is simply \[A = \begin{bmatrix}
+        c & 0\\
+        0 & c
+    \end{bmatrix}\]
+    \item[] \textbf{Orthogonal Projection.} Any vector $\vec{x}$ may be written in terms of its components, $\vec{x} = \vec{x_{||}} + \vec{x_{\perp}}$. Projection onto the $x$-axis is simply given by \[P_x = \begin{bmatrix}
+        1 & 0\\
+        0 & 0
+    \end{bmatrix}\] and projection onto the $y$-axis is simply given by \[P_y = \begin{bmatrix}
+        0 & 0\\
+        0 & 1
+    \end{bmatrix}\]
+Considering the general projection onto a line $L$, given a unit vector $\vec{u}$ in the direction of $L$, the projection onto $L$ is given by \[\text{proj}_L(\vec{x}) = \boxed{(\vec{x}\cdot\vec{u})\vec{u}}\] By multiplying the dot product through and then factoring out $x_1$, $x_2$ into a separate vector, this leaves the projection matrix: \[P_L = \begin{bmatrix}
+    u_1^2 & u_1 u_2\\
+    u_1 u_2 & u_2^2
+\end{bmatrix}\]
+    \item[] \textbf{Reflection.} For any vector $\vec{x}$ reflected over a line $L$, $\vec{x_{||}} - \vec{x_{\perp}}$. By some addition, the reflection matrix $M$ is given by $2P_L - I$, or \[M = \begin{bmatrix} 
+    2u_1^2 - 1 & 2u_1u_2\\
+    2u_1u_2 & 2u_2^2 - 1
+\end{bmatrix}\]
+    \item[] \textbf{Rotation.} The rotation matrix uses trigonometric functions to map any vector $\vec{x}$ to itself rotated by $\theta$. This matrix is given by \[R = \begin{bmatrix}
+        \cos\theta & -\sin\theta\\
+        \sin\theta & \cos\theta
+    \end{bmatrix}\]
+    \item[] \textbf{Shear.} A shear matrix causes a shift on vector $\vec{x}$ in either the horizontal or vertical direction. The horizontal shear matrix is given by \[S_h = \begin{bmatrix}
+        1 & k\\
+        0 & 1
+    \end{bmatrix}\] and the vertical shear matrix is given by \[S_v = \begin{bmatrix}
+        1 & 0\\
+        k & 1
+    \end{bmatrix}\]
+\end{itemize}
+
+\subsection{Vector Spaces and Subspaces}
+
+The \textbf{image} of a function $f$ refers to the set of all outputs which may be reached from a particular set of inputs. In particular, 
+\begin{align*}
+\text{image}(f) &= \{f(x)\ |\ x\in X\}\\
+&= \{y\in Y\ |\ y=f(x)\text{ for } x\in X\}
+\end{align*}
+The image of a matrix $A\in\mathbb{R}^{m\times n}$ is then given by \[\text{image}(A) = \{\vec{y}\in\mathbb{R}^m\ |\ \vec{y}=A\vec{x}\text{ for }\vec{x}\in\mathbb{R}^n\}\]
+Alternatively, the image of any linear transformation $T(\vec{x}) = A\vec{x}$ is the \textbf{span} of the column vectors of $A$, where \textit{span} refers to the set of linear combinations which may be produced from $A$. For vectors $\vec{v_1}, \dots \vec{v_m}\in\mathbb{R}^n$, $\text{span}(\vec{v_1},\dots,\vec{v_m}) = \{c_1\vec{v_1} + \dots + c_m\vec{v_m}|c_1,\dots c_m\in\mathbb{R}\}$. Then, $\text{image}(A)$ is given by \[\text{image}(A) = \text{span}(A\vec{x}) = \begin{bmatrix}
+    | & & |\\
+    \vec{v_1} & \dots & \vec{v_m}\\
+    | & & |
+\end{bmatrix}\begin{bmatrix}
+    x_1\\
+    \vdots\\
+    x_m
+\end{bmatrix} = x_1\vec{v_1} + \dots + x_m\vec{v_m}\]
+\vspace{-2em}
+\begin{shaded}
+    \textbf{Properties of the image.} For a linear transformation $T:\mathbb{R}^m\mapsto\mathbb{R}^n$:
+    \begin{center}
+        \begin{enumerate}
+            \item The zero vector $\vec{0}\in\mathbb{R}^n$ is in the image of $T$.
+            \item If $\vec{v_1},\vec{v_2}$ are in the image of $T$, $\vec{v_1}+\vec{v_2}$ is in the image of $T$ (the image is \textbf{closed under addition}).
+            \item If $\vec{v}$ is in the image of $T$ and $k\in\mathbb{R}$, then $k\vec{v}$ is in the image of $T$ (the image is \textbf{closed under scalar multiplication}).
+        \end{enumerate}
+    \end{center}
+\end{shaded}
+\vspace{-1em}
+The \textbf{kernel} of a linear transformation $T:\mathbb{R}^m\mapsto\mathbb{R}^n$ is defined to be the set of all vectors $\vec{x}\in\mathbb{R}^m$ satisfying $T(\vec{x}) = \vec{0}$. Alternatively, the kernel of a matrix equivalent to $T$, $\text{ker}(A)$, is simply the set of $\vec{x}$ which satisfy the equation $A\vec{x} = \vec{0}$. $\text{ker}(A)$ is also known as the \textbf{null space} of $A$.
+\vspace{-0.5em}
+\begin{shaded}
+\textbf{Properties of the kernel.} For a linear transformation $T:\mathbb{R}^m\mapsto\mathbb{R}^n$:
+\begin{center}
+\begin{enumerate}
+    \item The zero vector $\vec{0}\in\mathbb{R}^m$ is in the kernel of $T$.
+    \item The kernel is closed under addition.
+    \item The kernel is closed under scalar multiplication.
+\end{enumerate}
+\end{center}
+\end{shaded}
+\vspace{-2em}
+In general, $\text{ker}(A)=\{\vec{0}\}$ under certain conditions:
+\begin{enumerate}
+    \item If, for $m\times n$ matrix $A$, $\text{rank}(A)=m$ and $m\leq n$ (for $m>n$, there are nonzero vectors in the set $\text{ker}(A)$)
+    \item If and only if, for $n\times n$ (square) matrix $A$, $A$ is invertible.
+\end{enumerate}
+\vspace{-1em}
+The image and kernel of a linear transformations are each special \textbf{subspaces}. A subspace has the following properties:
+\vspace{-0.5em}
+\begin{shaded}
+    A subset $W$ of the vector space $\mathbb{R}^n$ is called a (linear) subspace of $\mathbb{R}^n$ if is satisfies the following properties:
+    \begin{center}
+    \begin{enumerate}
+        \item $W$ contains the zero vector in $\mathbb{R}^n$.
+        \item $W$ is closed under addition (for all $w_1,w_2\in W$, $w_1 + w_2 \in W$).
+        \item $W$ is closed under scalar multiplication (for all $k\in\mathbb{R}, w\in W$, $kw\in W$)
+    \end{enumerate}
+    \end{center}
+\end{shaded}
+\vspace{-1em}
+From this, it follows that a subspace is closed under any linear combination of its elements.
+
+The \textbf{basis} for a subspace is a set of vectors which spans the space. For example, $\left\{ \vec{e}_1,\vec{e}_2,\vec{e}_3\right\}$ is a basis for $\mathbb{R}^3$, but any other set of three linearly independent vectors in $\mathbb{R}^3$ also forms a basis for $\mathbb{R}^3$. If a set of vectors is not linearly independent, at least one of the vectors is \textbf{redundant} and is not included in the basis. A basis for a space always contains the same amount of vectors. For example, any basis for $\mathbb{R}^n$ must contain $n$ vectors. The number of vectors in the basis for a space is known as the \textbf{dimension} of the space. For example, $\text{dim}(\mathbb{R}^n) = n$, because $n$ linearly independent basis vectors are needed to span $\mathbb{R}^n$. A subspace $V$ of $\mathbb{R}^n$ may have a dimension less than or equal to, but not greater than, $n$.
+
+It is possible to check for linear independence of a set of vectors $\{\vec{v}_1,\dots,\vec{v}_n\}$ by considering the linear combination \[c_1\vec{v}_1 + \dots + c_n\vec{v}_n = \vec{0}\] If this relation holds only when $c_1=\dots=c_n = 0$, then all vectors in the set are linearly independent. Notice that this equation may be converted into an equivalent augmented matrix, given by \[\left[\begin{array}{ccc|c}
+| & & | & 0\\
+\vec{v}_1 & \dots & \vec{v}_n & \vdots\\
+| & & | & 0
+\end{array}\right]\]
+If this matrix reduces to $[\ I \ |\ \vec{0}\ ]$, then all $c_1,\dots,c_n$ must be $0$, meaning the vectors are linearly independent. In general, for a matrix $A = \begin{bmatrix}
+    | & & |\\
+    \vec{v}_1 & \dots & \vec{v}_n\\
+    | & & |
+\end{bmatrix}$, the columns of $A$ are linearly independent if and only if $\text{ker}(A) = \{\vec{0}\}$, or equivalently, $\text{rank}(A) = n$. 
+
+By reducing $A$ to reduced row echelon form, it is possible to pick a basis for $\text{im}(A)$. In particular, each column which may be reduced to have a pivot is a non-redundant column, and is therefore necessary to span the image. The set of these columns forms the basis for $\text{im}(A)$.
+
+The rank-nullity theorem relates the dimension of the kernel and image to the number of columns in a matrix:
+
+\begin{shaded}
+    \textbf{Rank-Nullity Theorem}. Generally, for a linear transformation $T:V\mapsto W$,
+    \[\text{dim}(\text{im}(T)) + \text{dim}(\text{ker}(T)) = \text{dim}(V)\] and equivalently (but with different terminology), for an $m\times n$ matrix such that $T(\vec{x}) = A\vec{x}$, 
+    \[\text{rank}(A) + \text{null}(A) = n\]
+\end{shaded}
+
+In other words, the number of columns with pivots (rank) and free variables (nullity) must sum to the total number of columns in a matrix.
+
+It is now possible to think of a matrix as a function, with all the properties of a function applying to a matrix as well:
+
+\begin{shaded}
+For a function $f:A\mapsto B$,
+
+$f$ is \textbf{surjective} (onto) if, for every $y\in B$, there exists an $x\in A$ such that $f(x)=y$.
+
+$f$ is \textbf{injective} (one-to-one) if, for all $x,y\in A$, $f(x)=f(y)$ only when $x=y$.
+
+$f$ is \textbf{bijective} (invertible) if it is both injective and surjective.
+\end{shaded}
+
+For an $m\times n$ matrix $A$, surjectivity requires $m \leq n$ (at least as many columns as rows, at least as many many variables as equations) and injectivity requires $m\geq n$ (at least as many rows as columns, at least as many equations as variables), so only when $m=n$ (so $A$ is square) can $A$ be bijective.
+
+These definitions and properties extend to all vector spaces, not merely $\mathbb{R}^n$. For example, the complex numbers, polynomials, differentiable functions, and any other set of object with well-defined zero which is closed under addition and scalar multiplication may constitute a vector space. For any vector space, a linear transformation $T:V\mapsto W$ is an \textbf{isomorphism} if $T$ is bijective, and $V$ is \textbf{isomorphic} to $W$ is there exists an isomorphism $T$ from $V$ to $W$.
+
+% finish 3.4, 4.3
+
+\subsection{Change of Coordinates}
+
+\textbf{Coordinates} are essential for any geometric interpretation of a vector space. In particular, Cartesian coordinates are generally used to describe the $x$-$y$ plane or the $x$-$y$-$z$ space.
+
+\begin{shaded}
+    For an ordered basis $\mathcal{B} = (\vec{v}_1,\dots,\vec{v}_n)$ for a vector space $V$, all elements $\vec{v}\in V$ may be written as a linear combination \[\vec{v} = a_1\vec{v}_1 + \dots + a_n\vec{v}_n\] and the $\mathcal{B}$-coordinates are defined as \[[\vec{v}]_\mathcal{B} = \begin{bmatrix}
+        a_1\\
+        \vdots\\
+        a_n
+    \end{bmatrix}\]
+\end{shaded}
+
+Notice that $V$ is now related to $\mathbb{R}^n$ by $[\vec{v}]_\mathcal{B}$. This makes bases particularly useful when working with vector spaces besides $\mathbb{R}^n$ (i.e. differentiable functions, polynomials, etc). 
+
+For example, for the set $\mathcal{P}_2$ of polynomials of at most degree two, a basis $\mathcal{B} = (1, x, x^2)$ spans $\mathcal{P}_2$ such that for any $p\in\mathcal{P}_2$, $p(x) = a + bx + cx^2$, so $[p]_\mathcal{B} = \begin{bmatrix}
+    a\\
+    b\\
+    c
+\end{bmatrix}$ relates $p\in\mathcal{P}_2$ to $\mathbb{R}^2$.
+
+Formally, this process is an isomorphic mapping from $V$ to $\mathbb{R}^n$:
+
+\begin{shaded}
+The mapping \[V\to\mathbb{R}^n\text{, given by }\vec{v}\mapsto[\vec{v}]_\mathcal{B}\] is an isomorphism of $V$ and $\mathbb{R}^n$, so \[[\vec{v} + \vec{w}]_\mathcal{B} = [\vec{v}]_\mathcal{B} + [\vec{w}]_\mathcal{B}\] and \[[c\vec{v}]_\mathcal{B} = c[\vec{v}]_\mathcal{B}\]
+\end{shaded}
+
+For a linear transformation $T$ given by a square matrix such that $T(\vec{x}) = A\vec{x}$, it is relatively simple to compute the basis for the transformation. In particular, for $\vec{x} = c_1\vec{v}_1 + \dots + c_n\vec{v}_n$ where $\vec{v}_1,\dots\vec{v}_n$ form a basis, \[[T(\vec{x})]_\mathcal{B} = \begin{bmatrix}
+    | & & |\\
+    [T(\vec{v}_1]_\mathcal{B} & \dots & [T(\vec{v}_n)]_\mathcal{B}\\
+    | & & |
+\end{bmatrix}\begin{bmatrix}
+    c_1\\
+    \vdots\\
+    c_n
+\end{bmatrix} = B[\vec{x}]_\mathcal{B}\] where $B$ is the $\mathcal{B}$-coordinate matrix given by \[B = \begin{bmatrix}
+    | & & |\\
+    [T(\vec{v}_1]_\mathcal{B} & \dots & [T(\vec{v}_n)]_\mathcal{B}\\
+    | & & |
+\end{bmatrix}\]
+Alternatively, $B$ may be computed by \[B = S^{-1} A S\] where $S$ is the matrix of the bases of $A$, given by \[S = \begin{bmatrix}
+    | & & |\\
+    \vec{v}_1 & \dots & \vec{v}_n\\
+    | & & |
+\end{bmatrix}\]
+Then, the $\mathcal{B}$-matrix for a linear transformation may be constructed two ways:
+
+\begin{shaded}
+For a linear transformation $T:\mathbb{R}^n\mapsto\mathbb{R}^n$ such that $T(\vec{x}) = A\vec{x}$ with basis $\vec{v}_1,\dots,\vec{v}_n$ for $\mathbb{R}^n$, the $\mathcal{B}$-matrix $B = [T]_\mathcal{B}$ may be computed either column-wise, as \[B = \begin{bmatrix}
+    | & & |\\
+    [T(\vec{v}_1]_\mathcal{B} & \dots & [T(\vec{v}_n)]_\mathcal{B}\\
+    | & & |
+\end{bmatrix}\] or with the basis, as \[B = S^{-1}AS,\hspace{0.5in} S = \begin{bmatrix}
+    | & & |\\
+    \vec{v}_1 & \dots & \vec{v}_n\\
+    | & & |
+\end{bmatrix}\]
+
+And since $S$ is invertible, the relationship \[SB = AS\] holds generally.
+\end{shaded}
+
+In general, \textit{any isomorphic transformation $T:V\mapsto V$ may be represented with a $B$-matrix}:
+
+\begin{shaded}
+For any isomorphic transformation $T:V\mapsto V$ with basis $\mathcal{B}$ for $V$ given by $\mathcal{B}=\{f_1,\dots,f_n\}$, the change of basis matrix $B$ is given by \[B = \begin{bmatrix}
+    | & & |\\
+    [T(f_1)]_\mathcal{B} & \dots & [T(f_n)]_\mathcal{B}\\
+    | & & |
+\end{bmatrix}\]
+\end{shaded}
+
+The entire change of basis process may be best understood with a commutative diagram:
+
+\[\begin{CD}
+V @>T>> V\\
+@VVL_\mathcal{B}V @VVL_\mathcal{B}V\\
+\mathbb{R}^n @>[T]_\mathcal{B}>> \mathbb{R}^n
+\end{CD}\]
+
+$L_\mathcal{B}$ is the coordinate isomorphism associating an arbitrary vector space $V$ with some basis $\mathcal{B}$ in $\mathbb{R}^n$. Direct paths (i.e. by $T$ or $[T]_\mathcal{B}$) are equivalent to the change-of-coordinate path (i.e. by $L_\mathcal{B}[T]_\mathcal{B}L^{-1}_\mathcal{B}$ or $L_\mathcal{B}^{-1}\circ T\circ L_\mathcal{B}$ respectively). 
+
+\subsection{Orthogonality in \texorpdfstring{$\mathbb{R}^n$}{R\^n}, Inner Product Spaces, and Least Squares}
+
+In higher dimensions, the concept of orthogonality (perpendicularity) and length of vectors becomes difficult to visualize. Instead, a rigorous definition replaces intuition:
+
+Two vectors $\vec{v}$ and $\vec{w}$ in $\mathbb{R}^n$ are \textbf{orthogonal} if their dot product $\vec{v}\cdot\vec{w} = v_1w_1 + \dots + v_nw_n = 0$.
+
+The \textbf{length} of a vector is given by $||\vec{v}|| = \sqrt{\vec{v}\cdot \vec{v}} = \sqrt{v_1^2 + \dots + v_n^2}$. A vector is a \textbf{unit vector} if its length is equal to $1$. For a vector $\vec{v}$ which is not a unit vector, the corresponding unit vector $\vec{u}$ in the direction of $\vec{v}$ is given by $\vec{u} = \frac{1}{||\vec{v}||} \vec{v}$. 
+
+
+The concept of the dot product generalizes for any vector space as an \textbf{inner product}. In fact, the dot product is one example of an inner product in the \textit{inner product space} $\mathbb{R}^n$. An inner product is defined as any transformation $\langle\cdot,\cdot\rangle:V\to\mathbb{R}$ satisfying the following properties:
+\newpage
+
+\begin{shaded}
+    For all $f,g,h\in V$ and all $c\in\mathbb{R}$, an inner product $\langle\cdot,\cdot\rangle$ satisfies the following:
+    \begin{enumerate}
+        \item $\langle f,g\rangle = \langle g,f\rangle$
+        \item $\langle f+g, h\rangle = \langle f, h\rangle + \langle g, h\rangle$
+        \item $\langle cf, g\rangle = c \langle f,g\rangle$
+        \item $\langle f,f\rangle > 0$ for all nonzero $f\in V$
+    \end{enumerate}
+    An inner product space is a vector space which has an assigned inner product. In a particular inner product space, the magnitude of an element $f$ is defined as $\sqrt{\langle f, f\rangle}$, and elements $f,g$ are orthogonal if $\langle f,g\rangle = 0$.
+\end{shaded}
+
+Vectors are \textbf{orthonormal} if they are of unit length and orthogonal. Orthonormal vectors must be linearly independent. Then, a set of $n$ orthonormal vectors in $\mathbb{R}^n$ have special properties. In particular, for orthonormal vectors $\vec{u}_1,\dots,\vec{u}_n\in\mathbb{R}^n$, $\vec{u}_1,\dots,\vec{u}_n$ must form a basis for $\mathbb{R}^n$.
+
+The projection may be generalized in $\mathbb{R}^n$. In particular:
+
+\begin{shaded}
+For a subspace $V$ of $\mathbb{R}^n$ with orthonormal basis $\vec{u}_1,\dots,\vec{u}_n$, the projection of any $\vec{x}\in \mathbb{R}^n$ onto the subspace $V$ is given by \[\text{proj}_V\vec{x} = \vec{x}_{||} = (\vec{u}_1\cdot\vec{x}_1)\vec{u}_1 + \dots + (\vec{u}_n\cdot\vec{x}_n)\vec{x}_n\] 
+\end{shaded}
+
+The \textbf{orthogonal compliment} of a vector space $V$ refers to the set of all vectors $\vec{x}$ which are perpendicular to every vector $\vec{v}$ in $V$. In set notation, $V_\perp$ is given by \[V_\perp = \{\vec{x}\in\mathbb{R}^n\ |\ \vec{x}\cdot\vec{x}=0 \ \forall\ \vec{v}\in V\}\]
+
+$V_\perp$ has several unique properties:
+
+\begin{shaded}
+    Properties of the orthogonal complement of a subspace $V$ of $\mathbb{R}^n$:
+    \begin{enumerate}
+        \item $V_\perp$ is a subspace of $V$.
+        \item $V\cap V_\perp =\{\vec{0}\}$
+        \item $\text{dim}(V) + \text{dim}(V_\perp) = n$
+        \item $(V_\perp)_\perp = V$
+    \end{enumerate}
+\end{shaded}
+
+Using this information, any basis may be converted into an \textbf{orthonormal basis} by the \textbf{Gram-Schmidt process}, a recursive process outlined as follows:
+
+\begin{shaded}
+\textbf{Gram-Schmidt Process}. For a basis $\mathcal{B}=\{v_1,\dots,v_n\}$, take
+\begin{eqnarray*}
+    u_1 &=& v_1\\
+    u_i &=& v_i - v_i^\perp,\text{ where } v_i^\perp = \text{proj}_{u_1}(v_i) + \dots + \text{proj}_{u_{i-1}}v_i,\hspace{0.2in}\text{ for }i>1
+\end{eqnarray*}
+
+which yields the new orthonormal basis \[\mathcal{B'} = \left\{\frac{u_1}{||u_1||},\dots,\frac{u_n}{||u_n||}\right\}\]
+\end{shaded}
+
+A linear transformation is called an \textbf{orthogonal transformation} if it preserves length and orthogonality. In particular, a linear transformation has the following properties:
+
+\begin{shaded}
+    \textbf{Properties of an Orthogonal Transformation}. A linear transformation $T:V\to V$ is orthogonal if and only if any of the following hold: \begin{enumerate}
+        \item $||T(\vec{x})|| = ||\vec{x}||\text{ for all }\vec{x}\in\mathbb{R}^n$
+        \item for orthogonal $\vec{v},\vec{w}\in V$, $T(\vec{v})$ and $T(\vec{w})$ are orthogonal
+        \item The $n\times n$ standard matrix $A$ of $T$ is an \textbf{orthogonal matrix}, such that the columns of $A$ form an orthonormal basis for $\mathbb{R}^n$
+        \item $A^TA = AA^T = I_n$, where $A^T$ is the transpose of $A$ such that entry $a_{ij}$ of $A$ becomes entry $a_{ji}$ of $A^T$. Equivalently, $A$ is orthogonal if $A^T=A^{-1}$.
+    \end{enumerate}
+\end{shaded}
+
+The transpose has several other useful properties:
+
+\begin{shaded}
+    \textbf{Properties of the Transpose}. For any $A,B\in\mathbb{R}^{m\times n}$, the following properties of the transpose apply:
+    \begin{enumerate}
+        \item $(A+B)^T = A^T + B^T$
+        \item $(AB)^T = B^TA^T$
+        \item $(A^T)^{-1} = (A^{-1})^T$
+        \item $\text{rank}(A^T) = \text{rank}(A)$
+        \item $\text{ker}(A)=\text{ker}(A^TA)$
+        \item $(\text{im}A)^\perp = \text{ker}(A^T)$
+    \end{enumerate}
+\end{shaded}
+
+The transpose has several applications, particularly in data fitting. In particular, for any \textit{inconsistent system} $A\vec{x}=\vec{b}$ (for which there is no solution), the \textbf{least-squares solution} approximates a solution.
+
+\begin{shaded}
+\textbf{Least Squares Solutions}. Let $A\in\mathbb{R}^{m\times n}$. The least-squares solution of a linear system $A\vec{x} = \vec{b}$ is the vector $\vec{x}^*$ such that $||\vec{b}-A\vec{x}^*|| \leq ||\vec{b}-A\vec{x}||$ for all $\vec{x}\in\mathbb{R}^n$. In other words, $\vec{x}^*$ minimizes the error between $\vec{b}$ and $A\vec{x}$.
+
+The least-squares solutions of a system $A\vec{x}=\vec{b}$ are the exact solutions of the consistent system \[A^TA\vec{x} = A^T\vec{b}\]
+\end{shaded}
+
+If $A$ is invertible, then $\vec{x}^* = (A^TA)^{-1}A^T\vec{b}$. For a consistent linear system, $\vec{X}^* = \vec{x}$ (the least squares solution is the solution to $A\vec{x} = \vec{b}$).
+
+Least-squares solutions are frequently applied in data fitting to fit vectors (generally polynomials or some other differentiable function) to a set of data--for example, in fitting a trend line, a quadratic function, or an exponential curve to an over-constrained dataset (which cannot fit exactly to the function in question).
+
+
+\newpage
+
+\subsection{Determinants}
+
+The \textbf{determinant} of a matrix, $\det A$, is a real number associated with a square matrix. In general, the determinant is computed recursively by \textit{Laplace expansion}. Several properties of the determinant allow its computation to be simplified at times:
+
+\begin{shaded}
+
+For any square $n\times n$ matrix, the following properties hold:
+
+\begin{enumerate}
+    \item $\det (AB) = (\det A) (\det B)$
+    \item $\det (A^n) = (\det A)^n$
+    \item $\det A^T = \det A$
+    \item $\det (A^{-1}) = \frac{1}{\det A}$
+\end{enumerate}
+
+For special matrices, the following properties hold:
+
+\begin{enumerate}
+    \item If a matrix has linearly dependent rows or columns, $\det A = 0$. Alternatively, a matrix is invertible if and only if $\det A \neq 0$.
+    \item The determinant of a triangular matrix is given by $\det A = \text{tr}A$, where $\text{tr}A$ is the sum of the diagonal entries of $A$.
+    \item If $A$ and $B$ are similar matrices, then $\det A = \det B$
+\end{enumerate}
+
+\end{shaded}
+
+\subsection{Eigenvalues and Eigenvectors}
+
+For a linear transformation $T:V\to V$, an \textbf{eigenvalue} of $T$ is a real number $\lambda$ such that $T(\vec{v})=\lambda \vec{v}$, where (nonzero) $\vec{v}\in V$ is an \textbf{eigenvector} corresponding to $\lambda$.
+
+If there exist linearly independent vectors $\vec{v}_1,\dots,\vec{v}_n\in\mathbb{R}^n$, with corresponding $\lambda_1,\dots,\lambda_n\in\mathbb{R}$ such that $A\vec{v}_i = \lambda_i\vec{v}_i$, then $\mathcal{B}=\left\{\vec{v}_1,\dots,\vec{v}_n\right\}$ forms an \textbf{eigenbasis} for $\mathbb{R}^n$.
+
+\begin{shaded}
+If an eigenbasis $\mathcal{B}=(\vec{v}_1,\dots,\vec{v}_n)$ exists for some matrix $A$, then $A$ is \textbf{diagonalizable} (similar to a diagonal matrix) by the diagonalization \[D = S^{-1}AS,\hspace{0.5in}S = \begin{bmatrix}
+    | & & |\\
+    \vec{v}_1 & \dots & \vec{v}_n\\
+    | & & |
+\end{bmatrix},\hspace{0.1in}D = \begin{bmatrix}
+    \lambda_1 & 0 & \dots & 0\\
+    0 & \lambda_2 & \dots & 0\\
+    \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & \dots & \lambda_n
+\end{bmatrix}\]
+\end{shaded}
+
+\newpage
+
+A method to calculate eigenvalues emerges from the definition of an eigenvalue-eigenvector pair. In particular, if $\lambda$ is an arbitrary real number and $\vec{v}$ is any nonzero vector, then the condition for an eigenvalue is: \[A\vec{v}=\lambda\vec{v} \iff A\vec{v}-\lambda\vec{v} = \vec{0} \iff A\vec{v}-\lambda I\vec{v} = \vec{0} \iff (A-\lambda I)\vec{v} = \vec{0}\]
+
+Thus, all vectors in $\text{ker}(A-\lambda I)$ are eigenvectors to corresponding eigenvalues $\lambda$. If there are eigenvectors (in the kernel), then $\det(A-\lambda I) = 0$ as $A-\lambda I$ is not invertible in this case. Thus, (real or complex) eigenvalues and eigenvectors may be computed as follows:
+
+\begin{shaded}
+    Eigenvalues and eigenvectors satisfy the \textbf{characteristic equation}: \[\det (A-\lambda I) = 0\] For each $\lambda_i$ found from the roots of the characteristic polynomial, eigenvectors consist of all vectors in $\text{ker}(A-\lambda_i I)$.
+\end{shaded}
+
+Each eigenvalue has an \textbf{algebraic multiplicity} $\text{almu}(\lambda_i)$ and a \textbf{geometric multiplicity} $\text{gemo}(\lambda_i)$. Algebraic multiplicity refers to the number of times $\lambda_i$ appears as a root in the characteristic equation, while geometric multiplicity refers to $\text{dim}(\text{ker}(A-\lambda_iI)$. If $\text{almu}(\lambda_i)\neq\text{gemu}(\lambda_i)$ for any eigenvector, then $A$ is not diagonalizable.
+
+In some cases, there exists an \textit{orthonormal eigenbasis} for a transformation. This is only the case when $S$ is orthogonal such that $S^{-1}AS = S^T A S = D$ for some diagonalization $D$. The \textbf{spectral theorem} outlines the condition for an orthonormal eigenbasis:
+
+\begin{shaded}
+    \textbf{Spectal Theorem}. A matrix $A$ is orthogonally diagonalizable if and only if $A$ is symmetric, where a symmetric matrix satisfies $A^T=A$.
+\end{shaded}

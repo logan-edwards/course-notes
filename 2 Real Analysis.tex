@@ -1,0 +1,322 @@
+\section{Real Analysis}
+
+\begin{center}
+    Notes from \textbf{Math 351: Principles of Analysis}
+
+    Taken at University of Michigan, Winter 2025
+
+    using \textit{Elementary Analysis: The Theory of Calculus}, by Kenneth Ross
+\end{center}
+
+\subsection{Real Numbers}
+
+This material is essentially a development of the two Fundamental Theorems of Calculus, beginning from sequences. To begin, certain axioms about real numbers and sets are taken for granted. These axioms are outlined:
+
+\begin{enumerate}
+    \item[] \textbf{Archimedean Property}. If $a>0$ and $b>0$, then there exists a natural number $n\in\mathbb{N}$ such that $na>b$, or $n>b/a$.
+    \item[] \textbf{Density of Rational Numbers}. If $a,b\in\mathbb{R}$ and $a<b$, then there exists a rational number $r\in\mathbb{Q}$ such that $a<r<b$.
+    \item[] \textbf{Density of Irrational Numbers}. If $a,b\in\mathbb{R}$ and $a<b$, then there exists an irrational number $x\in \mathbb{R}\backslash\mathbb{Q}$ such that $a<x<b$.
+\end{enumerate}
+    For the final axiom about the real numbers, a definition is necessary:
+    \begin{defn}
+        Let $S\subseteq\mathbb{R}$. If there exists $M\in\mathbb{R}$ such that $s\leq M$ for all $s\in S$, then $M$ is an \textbf{upper bound} for $S$. Similarly, if there exists $m\in\mathbb{R}$ such that $m\leq s$ for all $s\in S$, then $m$ is a \textbf{lower bound} for $S$. $S$ is said to be \textbf{bounded} if it has both an upper and lower bound. Equivalently, $S$ is bounded if and only if there exists $M_0\in\mathbb{R}$ such that if $s\in S$, then $|s|\leq M_0$.
+    \end{defn}
+\begin{enumerate}
+    \item[] \textbf{Completeness Axiom}: If $S$ is a non-empty subset of $\mathbb{R}$ which has an upper bound, then $S$ has a least upper bound $\sup S$. Similarly, if $S$ has a lower bound, then $S$ has a greatest lower bound $\inf S$.
+\end{enumerate}
+
+\subsection{Sequences}
+
+A sequence $s:\mathbb{N}\to\mathbb{R}$ is a mapping of natural numbers to real numbers. Generally, the $n$th term of a sequence $s(n)$ is denoted $s_n$.
+
+\begin{defn}
+    A sequence $\{s_n\}$ is said to \textbf{converge} to $s\in\mathbb{R}$ if for every $\epsilon>0$, there exists $N\in\mathbb{R}$ such that if $n>N$, then $|s_n - s| < \epsilon$. Here, $s$ is equivalently denoted as $s = \lim s_n = \displaystyle\lim_{n\to\infty} s_n$.
+\end{defn}
+Essentially, if the values of a sequence become arbitrarily close to some number after a given point, then the sequence is said to converge to that number. It can be shown that this limit $s$ is \textit{unique}.
+
+\textbf{Example}. Prove that $\lim \frac{1}{n} = 0$. \begin{proof}
+    Fix $\epsilon > 0$. Let $N = \frac{1}{\epsilon}$. Then, if $n>N$, \[\left|\frac{1}{n} - 0\right| = \frac{1}{n} < \frac{1}{N} = \frac{1}{1/\epsilon} = \epsilon\] Thus, $\left|\frac{1}{n} - 0\right| < \epsilon$, and $\lim \frac{1}{n}=0$.
+\end{proof}
+
+\newpage
+
+From the definition of the limit, various facts may be proved which aid in computing limits. Let $\lim s_n = s$ and $\lim t_n = t$. Then, the following limits hold:
+\begin{enumerate}
+\vspace{-1em}
+    \item[] \textit{Scalar Multiplication}. If $c\in \mathbb{R}$, then $\lim cs_n = cs$
+    \item[] \textit{Addition}. $\lim (s_n+t_n) = \lim s_n + \lim t_n = s+t$
+    \item[] \textit{Subtraction}. $\lim (s_n - t_n) = \lim s_n - \lim t_n = s-t$
+    \item[] \textit{Multiplication}. $\lim (s_nt_n) = st$
+    \item[] \textit{Division}. If $t\neq 0$ and $t_n\neq 0$ for all $n\in \mathbb{N}$, then $\lim (s_n/t_n) = \lim(s_n)/\lim(t_n) = s/t$
+    \vspace{-1em}
+\end{enumerate} Note that these limit laws \textit{only apply to sequences known to converge}. A particularly important limit law, the \textit{squeeze limit law}, is given:
+
+\begin{theorem*}
+    \textbf{(Squeeze Principle)} Let $a_n\leq s_n \leq b_n$ for all but finitely many values of $n$ and $\lim a_n = \lim b_n = s$. Then, $\lim a_n = \lim s_n = \lim b_n = s$.
+\end{theorem*}
+
+\begin{proof}
+    Fix $\epsilon > 0$. Since $a_n\leq s_n\leq b_n$ for all but finitely many values of $n$, there exists $N_0$ such that if $n>N_0$, then $a_n \leq s_n \leq b_n$. Similarly, since $\lim a_n = \lim b_n = s$, there exists $N_1, N_2$ such that if $n > N_1$, then $|a_n -s| < \epsilon$ and if $n>N_2$, then $|b_n -s| < \epsilon$. Let $N=\max(N_0,N_1,N_2)$. Then, if $n>N$, \[|a_n - s| < \epsilon,\text{ so }s-\epsilon < a_n < s+\epsilon\] and \[|b_n - s| < \epsilon,\text{ so }s-\epsilon < b_n < s+\epsilon\] Thus, \[s-\epsilon < a_n \leq s_n \leq b_n < s+\epsilon\] and thus $|s_n - s| < \epsilon$, so $\lim s_n = s$.
+\end{proof}
+It is possible to derive other \textit{comparison principles}, i.e. if $s_n\geq a$ for all but finitely many $n$, then $\lim s_n \geq a$, and if $s_n \leq b$ for all but finitely many $n$, then $\lim s_n \leq b$.
+
+\begin{defn}
+    A sequence $\{s_n\}$ is said to \textbf{diverge to $\infty$} if, for all $M\in\mathbb{R}$, there exists a real number $N$ such that if $n>N$, then $s_n>M$. This is denoted $\lim s_n = +\infty$. A sequence $\{s_n\}$ is said to \textbf{diverge to $-\infty$} if, for all $M\in\mathbb{R}$, there exists a real number $N$ such that if $n>N$, then $s_n < M$. This is denoted $\lim s_n = -\infty$. 
+\end{defn}
+
+A sequence will either \textit{converge} to a finite limit, \textit{diverge} to $+\infty$ or $-\infty$, or \textit{not converge} if neither convergence nor divergence are met. For example, the sequence $s_n = (-1)^n$ does not converge.
+
+\begin{shaded}
+\begin{defn}
+    A sequence $\{s_n\}$ is \textbf{monotone increasing} if, for all $n\in\mathbb{N}$, $s_{n+1}\geq s_n$. $\{s_n\}$ is \textbf{monotone decreasing} if, for all $n\in \mathbb{N}$, $s_n \geq s_{n+1}$. $\{s_n\}$ is \textbf{monotone} if it is monotone increasing and/or monotone decreasing.
+\end{defn}
+
+Monotone sequences are special sequences for two reasons: (1) a bounded monotone sequence is guaranteed to converge, and it converges to its infimum if it is monotone decreasing or its supremum if it is monotone increasing; and (2) a \textit{monotone subsequence} can be found in any sequence. The meaning of subsequence is an infinite sampling of terms of an original sequence, ordered in the same manner:
+\begin{defn}
+    A sequence $\{s_{n_k}\}$ is a \textbf{subsequence} of $\{s_n\}$ if each $\{n_k\}$ is a strictly increasing sequence of natural numbers (i.e. $n_{k-1} < n_k$), indexed by $k\in\mathbb{N}$.
+\end{defn}
+Using these two facts, it is possible to prove a key result in analysis:
+
+\textbf{Bolzano-Weierstrass Theorem}. Every bounded sequence has a convergent subsequence.
+
+\begin{proof}
+    Let $\{s_n\}$ be a bounded sequence. Then, there exists a subsequence $\{s_{n_k}\}$ which is monotone. Since $\{s_n\}$ is bounded, $\{s_{n_k}\}$ must also be bounded. Since $\{s_{n_k}\}$ is monotone and bounded, $\{s_{n_k}\}$ is convergent. Thus, $\{s_n\}$ has a convergent subsequence.
+\end{proof}
+\end{shaded}
+
+Subsequences of convergent or divergent sequences have special properties. If a sequence $\{s_n\}$ is convergent to $s$, then every subsequence $s_{n_k}$ converges to $s$. Similarly, if $\{s_n\}$ diverges to $+\infty$, then every $\{s_{n_k}\}$ also diverges to $+\infty$, and if $\{s_n\}$ diverges to $-\infty$, then every $\{s_{n_k}\}$ also diverges to $-\infty$. Therefore, if the convergence (or divergence) of any two subsequences disagree, then the sequence is not convergent.
+
+\textbf{Example}. Prove that $\{s_n\} = \begin{cases}
+    1, & n \text{ even}\\
+    0, & n\text{ odd}
+\end{cases}$ does not converge by using subsequences.
+\begin{proof}
+    Observe that \[\lim s_{2k} = \lim 1 = 1\] and \[\lim s_{2k+1} = \lim 0 = 0\] and thus $\lim s_{2k} \neq \lim s_{2k+1}$, so $\{s_n\}$ does not converge.
+\end{proof}
+
+A final method to evaluate the convergence of a sequence is to determine whether the sequence is \textit{Cauchy}.
+\begin{defn}
+    A sequence $\{s_n\}$ is a \textbf{Cauchy sequence} if, for any $\epsilon>0$, there exists a real number $N$ such that if $m,n>N$, then $|s_m - s_n| < \epsilon$.
+\end{defn} In other words, if the terms in a sequence become arbitrarily close together for sufficiently large index values, the sequence is Cauchy. An important equivalence between convergent sequences and Cauchy sequences can be shown:
+\begin{theorem*}
+    A sequence $\{s_n\}$ is a Cauchy sequence if and only if it is convergent.
+\end{theorem*} This theorem provides a criteria for convergence even when the value to which a sequence converges is not obvious; it is sufficient to shown that the difference between consecutive terms becomes arbitrarily small for large enough indexing terms.
+
+A special type of sequence is the \textbf{infinite series}. A series $\sum_{n=m}^\infty a_n$ is said to converge if its \textbf{partial sums}, a sequence with $n$th term $s_n = a_m + a_{m+1} + \dots + a_n$, is convergent. \begin{theorem*}
+    If $\sum_{n=m}^\infty a_n$ is an infinite series, then $\lim a_n=0$.
+\end{theorem*}
+
+\begin{shaded}
+    \textbf{Discussion of closedness and compactness}. 
+    
+    \begin{defn}
+        A subset $S\subseteq \mathbb{R}$ is \textbf{closed} if every convergent sequence with values in $S$ has limit in $S$. A subset $S\subseteq \mathbb{R}$ is \textbf{compact} if every sequence with values in $S$ has a convergent subsequence with limit in $S$.
+    \end{defn}
+
+    An important theorem in analysis, the Heine-Borel theorem, relates compactness and closedness of a set:
+
+    \textbf{Heine-Borel Theorem}. A set $S\subseteq\mathbb{R}$ is compact if and only if $S$ is closed and bounded.
+
+    The Heine-Borel theorem is readily applied to an interval $[a,b]$ of $\mathbb{R}$. The set $[a,b]$ clearly is bounded below by $a$ and above by $b$, and this set is closed. Therefore, any closed interval of $\mathbb{R}$ is compact.
+\end{shaded}
+
+\newpage
+
+\subsection{Continuity}
+
+Continuity of a function may be defined immediately from sequences.
+
+\begin{defn}
+    A function $f:D\to \mathbb{R}$ is \textbf{continuous} at $x\in D$ if for every sequence $\{x_n\}$ converging to $x$ with values in $D$, $\lim f(x_n) = f(x)$.
+\end{defn}
+This is the \textit{sequence definition of continuity}. The criteria here is essentially that the limit distributes inside the function, as this definition requires $\lim f(x_n) = f(\lim x_n)$.
+
+
+\textbf{Example}. Prove that $f(x)=x^2$ is continuous on $\mathbb{R}$.
+
+\begin{proof}
+    Let $x\in\mathbb{R}$ be arbitrary. Let $\{x_n\}$ converge to $x$. Then, \[\lim f(x_n) = \lim (x_n^2) = \lim (x_n) \cdot \lim (x_n) = (\lim x_n)^2 = f(\lim x_n) = f(x)\] Our choice of $x$ is arbitrary, so for any $x\in\mathbb{R}$, $\lim f(x_n) = f(x)$, so $x^2$ is continuous on $\mathbb{R}$.
+\end{proof}
+
+$f(x_n)$ is simply a sequence, and if $f$ is continuous, this is a convergent sequence. Thus, limit laws for sequences essentially carry through to continuous functions, with these operations preserving continuity. In particular, for functions $f,g,h$ continuous at $x$, $(f+g)(x)$ is continuous, $cf(x)$ is continuous for any $c\in\mathbb{R}$, and $\left(\frac{f}{g}\right)(x)$ is continuous if $g$ is nonzero on the domain $D$. Additionally, a composition of continuous functions $f(g(x))$ is continuous at $x$. Finally, the squeeze principle carries through; if $f(x)\leq g(x)\leq h(x)$ for all $x\in D$ and $f(x_0)=h(x_0)$, then $g$ must be continuous at $x_0$.
+
+Two key theorems may be proven immediately from these facts:
+
+\textbf{Extreme Value Theorem}. If $f:D\to\mathbb{R}$ is continuous on $[a,b]$, then $f$ is bounded and it achieves its maximum and its minimum on $[a,b]$. Equivalently, there exists $x_1,x_2\in [a,b]$ such that $f(x_1)\leq f(x) \leq f(x_2)$ for all $x\in[a,b]$.
+
+Using the extreme value theorem, another key theorem may be proven:
+
+\textbf{Intermediate Value Theorem}. If $f$ is continuous on $[a,b]$ and $y$ is between $f(a)$ and $f(b)$, then there exists $x_0\in[a,b]$ such that $f(x_0)=y$.
+
+Continuity may also be defined without reference to sequences. This definition sometimes simplifies the process of proving or disproving continuity. This definition, which is equivalent to the sequence definition of continuity, is given below:
+\begin{defn}
+    A function $f:D\to\mathbb{R}$ is continuous at $x_0\in D$ if, for all $\epsilon>0$ there exists $\delta >0$ such that if $x\in D$ and $|x-x_0|<\delta$, then $|f(x)-f(x_0)| < \epsilon$.
+\end{defn}
+In the epsilon-delta definition of continuity, a function $f$ is continuous at $x_0$ if for any inputs $\delta$-close to $x_0$, the outputs are $\epsilon$-close to $f(x_0)$.
+
+\textbf{Example}. Prove that $f(x) = x^3$ is continuous at $x=1$.
+
+\textit{Scratch Work}. We often make the assumption that $\delta$ is small, i.e. $\delta<1$. Making this assumption, we have \[|x-1| < 1 \implies -1 < x-1 < 1 \implies 0 < x < 2\] And we also have \[|f(x)-f(1)| = |x^3-1| = |x-1||x^2+x+1|< \delta \underbrace{|2^2+2+1|}_{\text{given }x<2} < 7\delta\] If $\epsilon\geq 7\delta$, we are done. Thus, we choose $\delta$ to be the minimum $\epsilon/7$ (as found by assumption) and $1$ (as an upper bound).
+
+\begin{proof}
+    Fix $\epsilon > 0$. Choose $\delta = \min \left(\frac{\epsilon}{7}, 1\right)$. If $|x-1|<\delta$, then \[|f(x)-f(1)| = |x^3 - 1| = |x-1||x^2+x+1| < 7\delta \leq 7\frac{\epsilon}{7} = \epsilon\] For our chosen $\delta$, we are guaranteed that if $|x-1|<\delta$, then $|f(x)-f(1)|<\epsilon$. Thus, $f$ is continuous at $x=1$.
+\end{proof}
+
+%\begin{shaded}
+%It will now be shown that the sequence definition and $\epsilon-\delta$ definition of continuity are equivalent definitions.
+%
+%\begin{proof}
+%    \textit{Direction 1}. Assume $f:D\to\mathbb{R}$ is continuous at $x_0$ in the sequence definition of continuity. Then, for any sequence $\{x_n\}$ converging to $x_0$, 
+%\end{proof}
+%
+%\end{shaded}
+
+The $\epsilon-\delta$ definition lends itself to the definition of a stronger form of continuity, \textit{uniform continuity}:
+
+\begin{defn}
+    A function $f:D\to\mathbb{R}$ is \textbf{uniformly continuous} on $S\subseteq D$ if for all $\epsilon>0$, there exists $\delta>0$ such that if $x,y\in S$ and $|x-y|<\delta$, then $|f(x)-f(y)|<\epsilon$.
+\end{defn}
+
+Functions which grow at increasing rate are generally \textit{not uniformly continuous} on an unbounded interval. For example, $f(x)=x^2$ can be shown to be continuous for any value in $\mathbb{R}$, but $x^2$ is \textit{not uniformly continuous} on $\mathbb{R}$ because $\delta$ cannot take on a form to account for arbitrary $\epsilon$. By contrast, $f(x) = x$ is both continuous for every point in $\mathbb{R}$ and uniformly continuous on $\mathbb{R}$, with $\delta = \epsilon$. The most important result of uniform continuity is the following theorem:
+
+\textbf{Theorem}. If $f$ is continuous on a closed interval $[a,b]$, then it is uniformly continuous on $[a,b]$.
+
+\subsection{Differentiation}
+
+Before defining the derivative, it is necessary to define the limit at a point.
+
+\begin{shaded}
+\begin{defn}
+    Suppose $f:D\to \mathbb{R}$ is a function, $x_0\in\mathbb{R}$, and that there exists $\beta>0$ such that $D$ contains $(x_0-\beta, x_0)\cup(x_0,x_0+\beta)$. The \textit{limit} as $x\to x_0$, denoted \[\lim_{x\to x_0} f(x)= L\] if for any sequence $\{x_n\}$ with values in $D\backslash\{x_0\}$ such that $\lim x_n = x_0$, $\lim f(x_n)=L$.
+\end{defn}
+
+Notice that $x_0$ is not considered in evaluating the limit. Furthermore, the limit is only defined if the function can be evaluated within $\beta$ of $x_0$ (in either direction). Since $\displaystyle\lim_{x\to x_0}f(x)$ is defined in terms of sequences, the limit laws derived for sequences still apply. Furthermore, the limit as $x\to x_0$ may be equivalently defined in terms of the $\epsilon-\delta$ definition:\\
+
+\begin{theorem*}
+    $\displaystyle\lim_{x\to x_0} f(x) = L$ if and only if for all $\epsilon > 0$, there exists $\delta > 0$ such that if $|x-x_0|<\delta$ and $x\in D$, then $|f(x)- L|<\epsilon$.
+\end{theorem*}
+
+An important result relates limits to continuity:\\
+
+\begin{theorem*}
+    A function $f$ is continuous at $x_0$ if and only if $\displaystyle\lim_{x\to x_0} f(x) = f(x_0)$.
+\end{theorem*}
+\end{shaded}
+
+With the limit definition, it is possible to define the derivative:
+
+\begin{defn}
+    Suppose $f:D\to\mathbb{R}$, $x_0\in \mathbb{R}$ and $D$ contains an open interval around $x_0$. $f$ is called \textit{differentiable} at $x_0$ with derivative $f'(x_0)$ if \[\lim_{x\to x_0} \frac{f(x) - f(x_0)}{x - x_0} = f'(x_0)\]
+\end{defn}
+
+If this limit does not exist, then $f$ is said to be \textit{not differentiable} at $x_0$ and $f'(x_0)$ does not exist. Notice that $x_0$ is \textit{not} in the domain of $\frac{f(x)-f(x_0)}{x-x_0}$ to avoid division by zero. Differentiability and continuity are related by the following theorem:
+
+\begin{theorem*}
+    Suppose $f$ is differentiable at $x_0$. Then, $f$ is continuous at $x_0$.
+\end{theorem*}
+Notice that the opposite statement is clearly \textit{false}. As a counterexample, the function $|x|$ may be shown to be continuous but not differentiable at $x=0$.
+
+\newpage
+
+The common differentiation rules may be derived:
+
+\begin{enumerate}
+    \item[] \textit{Linearity of derivatives}. If $f,g$ are differentiable at $x_0$ and $c\in\mathbb{R}$, then $(f+g)'(x_0) = f'(x_0)+g'(x_0)$ and $(cf)'(x_0)= cf'(x_0)$
+    \item[] \textit{Product Rule}. If $f,g$ are differentiable at $x_0$, then $(fg)'(x_0) = f'(x_0)g(x_0) + f(x_0)g'(x_0)$
+    \item[] \textit{Quotient Rule}. If $f,g$ are differentiable at $x_0$ and $g(x_0)\neq 0$, then $(f/g)'(x_0) = \frac{f'(x_0)g(x_0)-f(x_0)g'(x_0)}{[g(x_0)]^2}$
+    \item[] \textit{Chain Rule}. If $g$ is differentiable at $x_0$ and $f$ is differentiable at $g(x_0)$, then $(f(g(x_0))' = f'(g(x_0)) g'(x_0)$
+\end{enumerate}
+
+Two important theorems involving the existence of derivatives may be derived directly from the definition:
+
+\textbf{Rolle's Theorem}. If $f$ is continuous on $[a,b]$, differentiable on $(a,b)$ and $f(a)=f(b)$, then there exists $x_0\in (a,b)$ such that $f'(x_0) = 0$.
+
+Rolle's Theorem is used in the proof of a stronger existence theorem, the \textit{mean value theorem}:
+
+\textbf{Mean Value Theorem}. If $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then there exists $x_0\in (a,b)$ such that $f'(x_0) = \frac{f(b)-f(a)}{b-a}$
+
+In other words, for any interval where $f$ is continuous and differentiable, the average slope over the interval must equal the instantaneous slope, the derivative, for at least one point on that interval. Observe that Rolle's Theorem is the Mean Value Theorem under the special case $f(b)-f(a)=0$.
+
+Following immediately from the Mean Value Theorem, derivatives can be shown to relate to the behavior of their original function.
+
+\begin{shaded}
+    \textbf{Function behavior and derivatives}. Suppose $f$ is differentiable on $(a,b)$.
+    \begin{enumerate}
+        \item[] If $f'(x) = 0$ for all $x\in(a,b)$, then $f(x)=c$ on $(a,b)$ for some constant $c\in \mathbb{R}$.
+        \item[] If $f'(x) > 0$ for all $x\in (a,b)$, then $f$ is strictly increasing on $(a,b)$.
+        \item[] If $f'(x) < 0$ for all $x\in (a,b)$, then $f$ is strictly decreasing on $(a,b)$.
+    \end{enumerate}
+\end{shaded}
+
+Each result follows from Mean Value Theorem. The case of strictly decreasing is illustrated as example:
+
+\begin{proof}
+    Suppose $f'(x)<0$ for all $x\in (a,b)$. Let $x_1,x_2\in (a,b)$ such that $x_2 > x_1$. Then, $f$ is differentiable on $(x_1,x_2)$, and there exists some value $x_0$ where $x_1< x_0< x_2$ and \[f'(x_0) = \frac{f(x_2)-f(x_1)}{x_2-x_1} < 0\] Thus, $f(x_2) < f(x_1)$, so $f$ is strictly increasing on $(a,b)$.
+\end{proof}
+
+As a final result, the intermediate value theorem may be extended to derivatives. 
+
+\textbf{Intermediate Value Theorem for Derivatives}. If $f$ is differentiable on $(a,b)$ and $x_1,x_2\in(a,b)$ where $x_1<x_2$ and $c$ is between $f'(x_1)$ and $f'(x_2)$, then there exists $x_0\in(x_1,x_2)$ such that $f'(x_0)=c$.
+
+If a function is at least twice differentiable, then this result is trivial as $f'$ is continuous. However, this theorem applies more generally, including to functions which are only once differentiable, making this result particularly useful.
+
+\newpage
+
+\subsection{Integration} % Darboux sums; properties of Darboux sums; FTC 2, FTC 1
+
+\begin{defn}
+    A \textbf{partition} $P$ of $[a,b]$ is a finite collection of points $P=\{a=t_0 < t_1 <\dots < t_{n-1}<t_n=b\}$
+\end{defn} Notably, each point $t_k\in [a,b]$ is distinct, and the endpoints are \textit{always included} in the partition. Thus, the smallest partition contains two points, i.e. the two endpoints.
+
+Integration is then defined by summation over a partition:
+\begin{shaded}
+    Let $f$ be a bounded function on $[a,b]$. Let $P$ be a partition of $[a,b]$.
+    
+    The \textbf{upper Darboux sum} of $f$ with partition $P$ is defined by \[U(f,P) = \sum_{k=1}^n \sup\left\{f[t_{k-1},t_k]\right\}(t_k-t_{k-1})\] and the \textbf{upper Darboux integral} of $f$ on $[a,b]$ is defined as \[U(f) = \inf \{U(f,P)|P\text{ partition of }[a,b]\}\]
+
+    Similarly, the \textbf{lower Darboux sum} of $f$ with partition $P$ is defined by \[L(f,P) = \sum_{k=1}^n \inf \left\{f[t_{k-1},t_k]\right\}(t_k-t_{k-1})\] and the \textbf{lower Darboux integral} of $f$ on $[a,b]$ is defined as \[L(f) = \sup \{L(f,P)|P\text{ partition of }[a,b]\}\]
+
+    $f$ is said to be \textbf{integrable} on $[a,b]$ if $U(f)=L(f)$, and thus \[L(f) = \int_a^b f(x)dx = U(f)\]
+\end{shaded}
+
+In other words, integration is defined by a special type of summation, where a \textit{partition} splits up an interval $[a,b]$ into subintervals. On each subinterval defined by the partition, the greatest or least value is multiplied by the length of that subinterval, thus computing the area of a rectangle defined by $f$. When the greatest possible lower Darboux sums and the smallest possible upper Darboux sums are equal, this value is said to be the \textit{integral} of $f$ on $[a,b]$.
+
+The following inequality can be shown:
+
+\[\inf \{f[a,b]\}(b-a)\leq L(f,P)\leq L(f)\leq U(f) \leq U(f,P) \leq \sup\{f[a,b]\}(b-a)\] Informally, this means that for any partition $P$, the lower and upper Darboux sums are bounded respectively by rectangles with width $b-a$ and the least and greatest value of $f$ on the interval respectively. Additionally, the greatest lower Darboux sum is naturally bounded from below by the lower Darboux sum on any partition, and the least upper Darboux sum is bounded from above by the upper Darboux sum on any partition.
+
+\textbf{Theorem (Cauchy Integrability Criterion)}. Let $f$ be bounded on $[a,b]$. $f$ is integrable on $[a,b]$ if and only if for all $\epsilon>0$, there exists a partition $P$ over $[a,b]$ such that $U(f,P)-L(f,P)<\epsilon$.
+
+\newpage
+
+Basic facts of integrability can be shown from the definition:
+
+\begin{enumerate}
+    \item[] If $f$ is continuous on $[a,b]$, then $f$ is integrable on $[a,b]$.
+    \item[] Let $f$ be integrable on $[a,b]$. If $c,d\in(a,b)$ and $c<d$, then $f$ is integrable on $[c,d]$.
+    \item[] Integration is linear. In particular, if $f,g$ are integrable on $[a,b]$ and $c\in\mathbb{R}$, then $\int_a^b (f+g)(x)dx = \int_a^b f(x)dx+\int_a^b g(x)dx$ and $\int_a^b cf(x)dx = c\int_a^b f(x)dx$.
+\end{enumerate}
+
+It is now possible to prove the fundamental theorems of calculus. These theorems essentially relate differentiation and integration as, in essence, "inverse" operations. The 2nd Fundamental Theorem is simpler to prove, and is therefore outlined first:
+
+\textbf{2nd Fundamental Theorem of Calculus}. Suppose $f$ is continuous on $[a,b]$ and differentiable on $(a,b)$. If $f'$ is integrable on $[a,b]$, then \[\int_a^b f'(x)dx = f(b)-f(a)\]
+
+\begin{proof}
+    Fix $\epsilon>0$. Since $f'$ is integrable, $f'$ meets the Cauchy criterion, so there exists a partition $P$ such that $U(f',P)-L(f',P)<\epsilon$. By the Mean Value Theorem, for each interval $[t_k,t_{k+1}]$ there exists some $x_k$ such that \[f'(x_k) = \frac{(f(t_{k+1})-f(t_k))}{(t_{k+1}-t_k)}\] and thus $f(t_{k+1})-f(t_k) = f'(x_k)(t_{k+1}-t_k)$. Thus, \[f(b)-f(a) = \sum_{k=1}^n [f(t_{k+1})-f(t_k)] = \sum_{k=1}^n f'(x_k)(t_{k+1}-t_k)\] Therefore, \[L(f',P)\leq f(b)-f(a)\leq U(f',P)\] Since $U(f',P)-L(f',P)<\epsilon$, and by definition of integration $L(f',P)\leq \int_a^bf'(x)dx\leq U(f',P)$, then \[0 \leq \int_a^b f'(x)dx - L(f',P) \leq U(f',P)-L(f',P)<\epsilon\] and $L(f',P)\leq f(b)-f(a)$, so \[\int_a^b f'(x)dx - L(f',P) \leq \left|\int_a^b f'(x)dx - [f(b)-f(a)]\right| < \epsilon\]
+\end{proof}
+
+In other words, if a function $f'$ is known to be the derivative of another function $f$, computing $\int_a^b f'(x)dx$ simply involves computing the difference between $f$ at the endpoints of the interval.
+
+\newpage
+
+\textbf{1st Fundamental Theorem of Calculus}. Let $f$ be integrable on $[a,b]$. Define $F(x)=\int_a^x f(t)dt$, then $F$ is uniformly continuous on $[a,b]$. If $f$ is continuous at $x_0\in(a,b)$, then $F$ is differentiable at $x_0$ with $F'(x_0) = f(x_0)$.
+
+\begin{proof}
+    \textit{Uniform Continuity}. Fix $\epsilon>0$. $f$ is integrable and therefore bounded by the Cauchy criterion for integration, so there exists some $M>0$ such that $|f(x)|\leq M$ for all $x\in[a,b]$.  If $x,y\in[a,b]$, and $|x-y|<\epsilon/M$, then (assuming without loss of generality that $x<y$): \[|F(y)-F(x)| = \left|\int_x^y f(t)dt\right| \leq \int_x^y |f(t)|dt\leq \int_x^y Mdt = M(y-x) = M|x-y| < \epsilon\] Thus, $|F(y)-F(x)|<\epsilon$ and $F$ is uniformly continuous on $[a,b]$.
+
+    \textit{Differentiability}. Suppose $f$ is continuous at $x_0\in(a,b)$. For any $x\neq x_0$, \[\frac{F(x)-F(x_0)}{x-x_0} = \frac{1}{x-x_0}\int_{x_0}^x f(t)dt\] and \[f(x_0) = \frac{1}{x-x_0} \int_{x_0}^x f(x_0)dt\] by simple evaluation of the constant integral. Thus, \[\frac{F(x)-F(x_0)}{x-x_0} - f(x_0) = \int_{x_0}^x [f(t)-f(x_0)]dt\] Fix $\epsilon>0$. Because $f$ is continuous at $x_0$, there exists $\delta>0$ such that if $t\in(a,b)$ and $|t-x_0|<\delta$, then $|f(t)-f(x_0)|<\epsilon$. Thus, \[\left|\frac{F(x)-F(x_0)}{x-x_0} - f(x_0)\right| \leq \frac{1}{x-x_0}\int_{x_0}^x \epsilon dt = \epsilon\] Therefore, \[\lim_{x\to x_0}\frac{F(x)-F(x_0)}{x-x_0} = f(x_0)\] and thus $F'(x_0) = f(x_0)$.
+\end{proof}
+
+The fact that $\left|\int_x^y f(t)dt\right| \leq \int_x^y |f(t)|dt$ can be shown by evaluating the Darboux sums of each respectively. Intuitively, $|f(t)|$ is always nonnegative, so summing multiples of $|f(t)|$ must be at least as large as the absolute value of the original integral (which may come out positive, negative, or zero before taking the absolute value, i.e. a different number and one necessarily smaller than $\int_x^y |f(t)|dt$ if $f$ is negative for any value on $[x,y]$).
+
+This fundamental theorem gives two facts: first, if $f$ is integrable, its integral function $F$ is uniformly continuous and therefore continuous; second, if the original function $f$ is continuous, then $F$ is differentiable and its derivative at a point is the value of $f$ at that point.
