@@ -1,0 +1,407 @@
+\section{Mechanical Behavior of Materials}
+
+\begin{center}
+    Notes from \textbf{MECHENG 382: Mechanical Behavior of Materials}
+
+    Taken at University of Michigan, Fall 2025
+
+    using \textit{Engineering Materials}, by Ashby and Jones
+\end{center}
+
+\subsection{Statics} % lecture 2-4
+
+The \textbf{stiffness} of an object is defined as the ratio of applied load to resultant deformation, i.e. \[\text{stiffness} := \frac{F}{\Delta x}\] The \textbf{compliance} of an object is the reciprocal of stiffness, i.e. \[\text{compliance} := \frac{\Delta x}{F}\] The \textbf{strength} of an object is its ability to resist failure. The \textbf{toughness} of an object is its ability to absorb and dissipate energy, where a \textit{tough} object can dissipate energy effectively and a \textit{brittle} object cannot.
+
+
+The stiffness of an object, as well as its strength, depends on both geometry and material properties. For many materials, the \textit{tensile test} is used to extrapolate fundamental material properties.
+
+\begin{shaded}
+    \textbf{Tensile Test}. The tensile test utilizes a (typically cylindrical) test piece of a material, from which a stress-strain curve for the material in general can be derived.
+
+    \begin{enumerate}
+        \item Measure initial length $L_0$ and cross-sectional area $A_0$.
+        \item Apply a tensile normal force $F$ to the test piece and measure the change in length $\Delta L$ until fracture. This allows a plot of force against displacement.
+        \item Compute and plot stress and strain using $F$, $A_0$, $L_0$, and $\Delta L$. This allows a plot of stress against strain, the engineering stress-strain curve.
+        \item Compute and plot true stress and true strain. This allows a plot of true stress against true strain.
+    \end{enumerate}
+
+The result of this procedure is a geometry-independent relationship between stress and strain for a given material. Note that the slope of the initially linear portion of the curve gives the Young's Modulus for the material.
+\end{shaded}
+
+Using this stress strain curve, it is possible to compute the energy absorption per unit volume of a material, given by \[u = \frac{U}{V} = \int \sigma d\varepsilon\] Note that the units are $[N\cdot m^{-2}]$ which is equivalent to $[N\cdot m \cdot m^{-3}]$, and thus the units are equivalently $[J\cdot m^{-3}]$, which is indeed energy per volume.
+
+There are two definitions of stress and strain: \textit{nominal} stress and strain, and \textit{true} stress and strain. Nominal stress and strain is defined familiarly as \[\sigma_n = \frac{F}{A_0},\hspace{0.25in} \varepsilon_n = \frac{\Delta L}{L_0}\] Nominal stress and strain are accurate for the (linear) elastic deformation portion of a stress-strain curve. However, for large plastic deformations, these relations cease to hold. More generally, true strain is defined by differential relationship: \begin{eqnarray*}
+    d\varepsilon_t &=& \frac{dL}{L}\\
+    \implies \varepsilon_t &=& \ln\left(\frac{L}{L_0}\right) = \ln\left(\frac{L_0+\Delta L}{L_0}\right)\\
+    &\implies& \boxed{\varepsilon_t = \ln (1 + \varepsilon_n)}
+\end{eqnarray*} True stress is still $F/A$, but because volume is conversed in plastic deformation, $A_0 L_0 = AL$, and therefore \begin{eqnarray*}
+    A &=& \frac{A_0L_0}{L} = \frac{A_0}{1+\varepsilon_n}\\
+    \implies \sigma_t &=& \frac{F}{A_0}(1+\varepsilon_n)\\
+    &\implies& \boxed{\sigma_t = \sigma_n (1+\varepsilon_n)} 
+\end{eqnarray*}
+\begin{center}
+\includegraphics[scale=0.325]{Images/materials_stress_strain.png}
+\end{center}
+True stress may also be described by a power law, given by \[\sigma_t = H\varepsilon_t^n\] where $H$ is the strength coefficient for a material, and $n$ is the \textit{strain-hardening exponent} which accounts for work hardening. $n$ has a physical meaning, as necking occurs precisely at $\varepsilon_t = n$.
+
+%%% NOTE:
+%%% Procedure for ME211 problems:
+%%% 1. FBD, Shear Force + Bending Moment Diagrams
+%%% 2. Determine Stress Components
+%%% 3. Find THREE principle normal stresses, maximum shear stress. Draw THREE MOHRS CIRCLES EACH TIME!
+%%% NOTE: When doing strain transformations, we are NOT guaranteed epsilon3=0, in fact it pretty much can't be because of expansion in all three directions by poisson's ratio
+%%% ALSO: When working with pressure vessels, try to keep in terms of sigmazz, sigmarr, sigmathetatheta if possible
+
+\subsection{Structure} % lecture 5-9, find better name
+
+Material properties depend on the atomic structure of a material. In particular, material properties depend on: type of atomic bonds; the material's \textit{crystal structure} (arrangement of atoms and molecules); defects in the crystal structure; and interactions of defects (the "microstructure"). Properties are either \textit{structure-insensitive}, depending primarily on the crystal structure and atomic bond types (i.e. elastic modulus, density, and melting temperature), or \textit{structure-sensitive}, depending primarily on the defects and microstructure (i.e. yield strength, ultimate tensile strength).
+
+In general, the atomic structure of a material aims to \textit{minimize energy} and \textit{maximize entropy}. Recall that Gibbs free energy is given by $G=H-TS$ and force on a body is related to energy most generally by $F_x = -dU/dx$. Thus, the force acting on an atom or molecule is given by \[F_x = -\frac{dG}{dx}\] Attractive forces occur when atoms are distant, and repulsive forces occur when atoms are close (note that $F_x\to \infty$ as molecules approach zero separation). When $-dG/dx=0$, the particle is in an energy well and no net force acts on the particle. Near $x=d_0$, a particle will oscillate with thermal energy $E_T =kT$, where $k$ is Boltzmann's constant.
+
+\begin{center}
+    \includegraphics[scale=0.5]{Images/materials_dgdx.png}
+\end{center} 
+
+\begin{shaded}
+    \textbf{Physical origin on modulus}. Consider atoms with separation distance $d_0$. Then, applied stress to maintain equilibrium is given by \[\sigma = -\frac{F}{d_0^2} = \frac{1}{d_0^2} \frac{dG}{dx}\] Then, Young's Modulus is given by \[E = \frac{d\sigma}{d\varepsilon} = \frac{1}{d_0^2}\frac{dG/dx}{dx/d_0} = \frac{1}{d_0^3}\frac{dG}{d\varepsilon}\] Substituting $G=H-TS$ and $\Omega:=d_0^3$ (where $\Omega$ is the \textit{atomic volume}) gives the following: \[E = \frac{1}{\Omega}\underbrace{\left(\frac{d^2H}{d\varepsilon^2} - T\frac{d^2S}{d\varepsilon^2}\right)}_{d^2U/d\varepsilon^2}\]
+
+    The quantity $\frac{1}{\Omega} \frac{d^2H}{d\varepsilon^2}$ is \textbf{bonding strength}, and the quantity $\frac{T}{\Omega}\frac{d^2S}{d\varepsilon^2}$ is the entropy change for a material, which is negligible in many materials (with notable exceptions of polymers, glasses, and other disordered materials).
+\end{shaded}
+
+\newpage
+There are various types of bonds which occur between atoms. The main types are outlined below:
+\begin{enumerate}
+    \item \textbf{Primary Bonds}. These types of bonds are very strong and of roughly equivalent strength to each other:
+\begin{enumerate}
+    \item \textit{Ionic bonds} (electron transfer). One atom donates an "excess" electron to another atom "lacking" an electron; the result is electrostatic attraction between atoms. Example: NaCl.
+    \item \textit{Covalent bonds} (electron sharing). Electrons are shared by atoms to produce a stable configuration. Typical in organic molecules, i.e. ethane.
+    \item \textit{Metallic bonds} (electron sea). Electrons are shared between atoms, giving ions freedom to move and capacity to conduct electricity and heat. 
+\end{enumerate}
+\item \textbf{Secondary Bonds}. These bonds are considerably weaker than primary bonds, i.e. they are broken with relative ease compared to primary bonds:
+\begin{enumerate}
+    \item \textit{Hydrogen bonds} (permanent dipole). Hydrogen atom attracts neighboring molecules, generating a permanent dipole (ex. H$_2$O). Can be induced by any individual atom bonding with hydrogen. Similar effects with other atoms than hydrogen, but the electronegativity of hydrogen has tendency to cause a more pronounced dipole moment.
+    \item \textit{Van der Waals bond} (fluctuating dipole). Very weak bonds emerging from unequal pull of electrons as electron density fluctuates (ex. O$_2$).
+\end{enumerate}
+\end{enumerate}
+
+The arrangement of these atoms results in different material properties. A material has, in general, one of the following structures:
+
+\begin{enumerate}
+    \item \textbf{Crystalline Structure}. Ordered structure with a lattice which repeats periodically. Most metals and ceramics have this structure.
+    \item \textbf{Poly-Crystalline Structure}. Material is comprised of several small grains of different orientation, where each grain has an ordered lattice structure on the interior and a disordered structure on the boundary. Most engineering materials (i.e. real metals) have this structure.
+    \item \textbf{Amorphous Structure}. Structure is disordered; there is no periodic repetition of molecular structure. Glasses and polymers have this structure.
+\end{enumerate}
+
+For a crystalline structure, it is possible to study the entire structure of a material by studying representative cells which tile the entire plane of atoms. A \textit{primitive cell} is defined as the smallest unit for such a cell which tiles the plane by translation alone without missing area. A \textit{conventional cell} is typically introduced instead to simplify the geometry involved, where a conventional cell only needs to tile the plane by translation alone.
+
+Given a lattice structure, it is possible to approximate the density with which atoms are arranged. In particular, using a \textit{hard sphere approximation}, i.e. that the atoms are replaced by hard spheres of radius $r_0$, the \textit{packing efficiency} can be defined by: \[\text{Packing Efficiency} = \frac{N_\text{atoms}\pi r_0^2}{A_\text{unit cell}}\] where packing efficiency is a measure of space occupied by atoms per total space available in the plane. In three dimensions, the \textit{packing factor} is the measure of volume occupied by atoms per total volume available in the space, given by: \[\text{Packing Factor} = \frac{N_\text{atoms} \Omega}{V_\text{unit cell}},\ \text{ where } \Omega = \frac{4\pi r_0^3}{3}\] 
+
+\newpage
+
+There are three main types of packing which occur in real materials:
+\begin{enumerate}
+    \item \textbf{Body-Centered Cubic} (BCC). A central atom makes contact with its 8 nearest neighbor atoms along the diagonal. Packing factor of approximately $68\%$. This is the packing structure of lithium, chromium, potassium, etc.
+    \item \textbf{Face-Centered Cubic} (FCC). Atom packed on each of the six cubic faces between eight corner atoms, so each atom makes contact with 12 nearest neighbors. Packing factor of approximately $74\%$. This is the packing structure of aluminum, copper, lead, etc.
+    \item \textbf{Hexagonal Close Packing} (HCP). Sheets of triangular-packed atoms are pressed together, resulting in packing factor of $74\%$ (the exact same as FCC). HCP also has 12 contacting nearest neighbors to each atom. This is the packing structure of magnesium, titanium, zinc, etc.
+\end{enumerate}
+
+%%% Lecture 7 main points: deformation caused by shear stresses, physical origin of shear modulus
+
+Real materials do not have perfect crystalline packing. Irregularities emerging in real structures, known as \textit{defects}, have substantial effects on material properties. Defects are outlined below:
+
+\begin{enumerate}
+    \item \textbf{Point Defects} (0D). A single missing atom on a lattice is called a \textit{vacancy} defect. An extra atom on a lattice is called a \textit{interstitial} defect. A different species of atom replacing an atom on the lattice is called a \textit{substitutional} defect.
+    \item \textbf{Volume Defects} (3D). In three dimensions, a collection of vacancies produces a \textit{void}. Interstitial defects become \textit{precipitate} defects with addition of solute atoms and \textit{compound} defects with addition of solutes and solvents.
+    \item \textbf{Area Defects} (2D). In two dimensions, defects emerge in the form of planar \textit{cracks} through the material.
+    \item \textbf{Line Defects} (1D). Line defects have a substantial effect on material properties; these defects take the form of \textit{dislocations}. An \textit{edge dislocation} is an insertion of a line of atoms; these atoms must have a different number of nearest neighbors compared to the rest of the material, and their insertion deforms the neighboring crystalline structure. A \textit{screw dislocation} involves shearing along a plane, resulting in a step of one lattice unit along the plane and a local spiral along the central axis.
+\end{enumerate}
+
+%%% Burger's Vector to quantify dislocation, \vec{b} \perp \vec{\zeta} where \vec{\zeta} is the dislocation
+
+\begin{shaded}
+    \textbf{Quantification of Line Defects}. Line defects are quantified by \textit{Burger's Vector}. The process is as follows:
+    \begin{enumerate}
+        \item Draw an arbitrary loop of size $m\times n$ containing line dislocation. If the loop is enclosed, there is no dislocation; if the loop is not enclosed, draw Burger's Vector $\vec{b}$ pointing from the starting point to the final point.
+        \item Let $\vec{\xi}$ be the direction of dislocation. If a defect is an edge dislocation, $\vec{b}\perp\vec{\xi}$. If a defect is a screw dislocation, $\vec{b}\parallel \vec{\xi}$.
+        \item If there are several dislocations, sum the Burger's vectors for each dislocation. The linear combination of these vectors is the net dislocation.
+    \end{enumerate}
+    The resulting Burger's vector quantifies the dislocation felt by distant vectors from an ideal crystalline lattice structure.    
+\end{shaded}
+
+%%% Lecture 8 main points: reading equillibrium phase diagrams, composition of metals / metal alloys
+
+All real solids are impure. Impurities, both interstitial and substitutional, can change the material properties of a solid. For example, a metal \textit{alloys} is a deliberate mixture of different metals to produce a different metal, generally one which is stronger than either metal alone. A material containing a random dispersion of impurities is called a \textit{solid solution}, where the \textit{solvent} are the host atoms (the major component) and the \textit{solute} are the impurities (the minor component). A \textit{phase} of a solid solution is a region of the material with \textit{uniform physical and chemical properties}. 
+
+%%% Binary Phase Diagram Systems
+%%% Note: melting of alloys occurs over a temperature range, rather than at one point as with pure materials. melting temp. not well-defined.
+%%% for binary liquid systems, when inside the envelope: gather liquid and weight percent from left, gather solid and weight percent from right; write out equations to solve
+%%% more accuractely: use level rule to solve these
+
+Metal alloys may be described with a \textit{binary phase diagram}. As opposed to traditional phase diagrams, i.e. phase diagrams for a pure substance, or for a dissolved mixture, a binary phase diagram does not have a well-defined melting temperature. Instead, there is an envelope within which there is a mixture of solid and liquid metals. In this case, the weight composition at a particular temperature may be found by reading off the concentration at the solid and liquid state and algebraically solving the resulting equation. In general, the \textit{lever rule} gives the solution to this simple system of equations:
+\[X_s = \frac{w_0 - w_l}{w_s - w_l},\ X_l = \frac{w_s - w_0}{w_s - w_l}\] The lever rule remains true in more complex cases as well, so long as one applies it within each distinct region.
+
+The simplest binary phase diagram has one solid phase, one liquid phase, and one two-phase region. Qualitatively, the structure of this phase diagram explains the real-world development of microstructure: as the liquid mixture of metals cools, one solid precipitates before the other in small parts. These components are unable to fully align when cooling is completed, causing irregularities in the lattice.
+
+A more realistic phase diagram is the \textit{binary eutectic system}. In these systems, the \textit{eutectic point} is a special point. In contrast to the simple binary phase system, a eutectic reaction moves immediately from liquid to solid as temperature drops below the eutectic point. A binary eutectic system typical for many metal alloys is illustrated below:
+
+\begin{center}
+\includegraphics[scale=0.3]{Images/materials_phasediagram.png}
+\end{center}
+
+\subsection{Yield in Ductile Materials} % lecture 10-11, find better name
+
+Real-world experiments show that ductile materials, under tensile loading as in the tensile test, typically fail during necking and at an angle of approximately $45^\circ$. From this, it is reasonable to assume that the material is failing under shear. In fact, if the yield stress is measured as $\sigma_Y$, a stress transformation gives the \textit{yield criteria} as: \begin{equation*}
+    \tau_\text{max} \geq k := \frac{\sigma_Y}{2}\tag{Yield Criterion}
+\end{equation*}
+
+\begin{shaded}
+    \textbf{Tresca Yield Criterion}. Given the hypothesis that ductile material fails in shear, define $k := \displaystyle\frac{\sigma_Y}{2}$. Thus, material will fail if $\tau_\text{max}\geq k = \displaystyle\frac{\sigma_Y}{2}$. 
+    \begin{enumerate}
+        \item Define the loading parameter by: \[\sigma_s = \max (|\sigma_1 - \sigma_2|, |\sigma_1-\sigma_3|,|\sigma_2-\sigma_3|)\] That is, find the diameter of the largest Mohr's circle constructed from the principle stresses.
+        \item By assumption, the material will yield at $\sigma_Y = 2k$.
+        \item By substitution, the material will yield if the Tresca stress exceeds yield stress: \[\sigma_s \geq \sigma_Y\]
+    \end{enumerate}
+
+    This result can be visualized with a \textbf{Tresca yield surface}. If stresses are contained within the yield surface, the material is safe; if the stresses are outside the yield surface, the material is susceptible to yield.
+\end{shaded}
+
+An alternative hypothesis states that the material will yield when \textit{deviatoric strain energy} exceeds the deviatoric strain energy at the yield stress state. That is, given
+
+\[U_\text{dev} = \frac{1+\nu}{3E}\cdot \frac{1}{2}\left[(\sigma_1-\sigma_2)^2+(\sigma_1-\sigma_3)^2+(\sigma_2-\sigma_3)^2\right]\] and therefore deviatoric strain energy at yield given by \[U_Y = \frac{1+\nu}{3E}\sigma_Y^2\] then, yield is predicted to occur when \[U_\text{dev}\geq U_Y\]
+
+\begin{shaded}
+    \textbf{von Mises Yield Criteria}. The von Mises yield criteria for failure emerges from the assumption that strain energy causes yield. The steps for evaluating yield in a von Mises framework is as follows:
+    \begin{enumerate}
+        \item Compute the equivalent von Mises stress as follows: \[\sigma_H = \sqrt{\frac{1}{2}\left[(\sigma_1-\sigma_2)^2+(\sigma_1-\sigma_3)^2+(\sigma_2-\sigma_3)^2\right]}\]
+        \item Material property (conventially uniaxial tensile strength) given by $\sigma_Y$.
+        \item Yield is predicted to occur where \[\sigma_H \geq \sigma_Y\]
+    \end{enumerate}
+
+    This results in a yield surface which takes the shape of a smooth oval in two dimensions, and a cylinder in three dimensions.
+\end{shaded}
+
+The Tresca and von Mises criteria typically give different conditions for yield in the same material. Working from \textit{tensile conditions}, the Tresca criteria is more conservative than the von Mises critera, but the two agree in uniaxial testing conditions. The two-dimensional projection of the two overlaid is shown below:
+
+\begin{center}
+\includegraphics[scale=0.15]{Images/materials_yield.png}
+\end{center}
+
+Note that, from another test, the von Mises criteria may be more conservative than the Tresca criteria, but the two tests will \textit{always agree} at the initial testing points (in this case, yield stress; in another test, perhaps a shear stress).
+
+Many geometries result in nonuniform stress concentration. The ratio of the maximum stress to the average stress defines the \textit{stress concentration factor}:
+\[K_T = \frac{\sigma_\text{max}}{\sigma_\text{avg}}\tag{Stress Concentration Factor}\]
+
+%%% THIS ENDS EXAM 1 CONTENT
+
+\subsection{Plastic Deformation and Metals} % lecture 12-18, find better name, maybe "Ductile Materials"?
+
+Recall that the mechanism of \textit{plastic deformation}, which is irreversible deformation, is shear. Specifically, plastic deformation can be caused by any of the following shearing mechanisms which produce a new, stable state:
+\begin{enumerate}
+    \item[] \textit{Martensitic Transformation}. The structure of atoms is transformed, i.e. from FCC to BCC, by a transformation. This process will be discussed in-depth later.
+    \item[] \textit{Twinning}. Some volume of the grain atoms are moved to mirror the original structure.
+    \item[] \textit{Slip (dislocation)}. Planes on the crystal lattice slide via dislocation motion, causing shape change.
+\end{enumerate}
+
+The slip mechanism is the most important mechanism of plastic deformation. The other mechanisms require large amounts of energy, as many atoms must be rearranged; for slip, only local dislocation is necessary, thus making slip a more common process in plastic deformation.
+
+Around an edge dislocation, a local dilation of approximately $b^2$ occurs, where $b$ is the magnitude of Burger's vector. The dislocation energy is strain energy, which can be calculated by the same energy density as for macroscopic energy. The stress field around an edge dislocation is complicated; however, it can be shown that the \textbf{energy per unit length of an edge dislocation} is given by: \[u_\text{edge} = \frac{Gb^2}{4\pi(1-\nu)} \ln\left(\frac{R}{r_0}\right) \propto Gb^2\] Total energy can then be calculated by multiplying $u_\text{edge}$ by the length of the edge dislocation. Similarly, one can derive the \textbf{energy per unit length of a screw dislocation}, which is given by \[u_\text{screw} = \frac{Gb^2}{4\pi}\ln\left(\frac{R}{r_0}\right) \propto Gb^2\] Note that, as expected, both energies are proportional to $Gb^2$. That is, $Gb^2$ is a sort of "minimum energy" carried by a dislocation, and therefore a sort of "minimum energy" required to cause dislocation.
+
+To quantify dislocations, it is useful to define \textbf{dislocation density} $\rho$. Dislocation density is defined as the length $l$ of dislocation per unit volume $V_0$, so \[\rho := \frac{l}{V_0}\] $\rho$ has SI units $m^{-2}$. $\rho$ may be equivalently defined as the number of dislocation lines crossing a unit area; the units are the same, and assuming random distribution of dislocations, the result is expected to be the same. To produce a dislocation, some force is required. Resistive (frictional) force prevents atoms from moving within a lattice; this resistive force, $k$, is intrinsic to a material and is minimized in the close-packing directions (i.e. in the direction of nearest neighbors). When enough stress is applied to a crystal to overcome internal friction, the dislocation will move, causing plastic dislocation. The \textbf{force per unit length} applied as an edge dislocation moves is given by:
+\[f_x = \tau_{xy} b\] More generally, assuming a glide plane in the $xy$ plane, the local force exerted on the dislocation is given by projection: \[\vec{f} = \left[\left(\tau_{xz}\hat i + \tau_{yz}\hat j\right)\cdot \vec{b}\right]\hat{n}\tag{Peach-Koehler Force}\] This force assumes dislocation is local, i.e. dislocations to not interact. 
+
+\begin{shaded} \textbf{Work Hardening Effect}. In practice, dense dislocations cause \textbf{work hardening} as dislocations interact and prevent neighboring dislocations, effectively "locking" dislocations in place, i.e. \[\sigma_Y\propto \sqrt{\rho}\tag{Single Crystal}\] In a \textbf{polycrystal} substance, dislocations cannot move between grain boundaries, as these boundaries are not aligned. Therefore, increasing the grain size weakens yield strength as the grain boundaries are lengthened; this can be accomplished by decreasing the grain size $D$. An empirical relationship is given: \[\sigma_Y = \sigma_0 + \frac{k}{\sqrt{D}}\implies \sigma_Y\propto \frac{1}{\sqrt{D}}\tag{\text{Polycrystal}}\] Note that, as expected, yield strength increases with smaller grain size. 
+\end{shaded}
+
+%%%%%%%%% Rewatch this park of lecture 13(?), or read through the slides again at least idk
+Similar work-hardening effects occur for alloys, although the mechanism is different.
+\begin{shaded}
+    \textbf{Work Hardening of Alloys}. When multiple solid solutes are present, the dislocation line distorts to minimize energy. Attractive and repulsive forces balance to prevent motion of dislocations, which increases material strength. The \textbf{shear strength}, $k$, increases as follows:
+    \[k\propto \varepsilon_m^{3/2} c^{1/2}\] where $\varepsilon$ is the strain induced as misfitting atoms are inserted into the lattice, and $c$ is the concentration of solutes. Note that these values are taken around a point defect on the lattice. From this, it is obvious that a large mismatch between atomic sizes or a large solute concentration increases yield strength.
+    
+    Similarly, for small precipitate, hardening is also proportional to strain induced on the lattice and particle size. In fact, \textbf{small, coherent precipitate} is proportional as follows: \[k\propto \left|\varepsilon_{coh}^{3/2}\right|(d_0f/b)^{1/2}\] where $d_0$ is precipitate particle size, and $f$ is the volume fraction. Then, at a constant volume, a larger size results in a higher yield strength.
+
+    For large precipitate, incoherence tends to occur. In this case, a shearing force must overcome resistance from both the matrix and precipitate. It can be shown that, for \textbf{large, incoherent precipitate}, increased volume fraction results in a higher yield strength. Dislocations traveling through a lattice cannot penetrate the large, hard precipitate, and therefore dislocations bow around these points; additional (tensile) resistance is generated by this bowing, which is given by: \[\tau_0 = \frac{\Gamma}{bR} = \frac{Gb}{2R},\hspace{1in}\Gamma:=\frac{dU}{dl}=\frac{1}{2}Gb^2\] where $\tau_0$ is the critical external stress required to bend the dislocation line. Therefore, \textbf{bowing shear strength} in a hard precipitate has the following proportionality: \[k_b \approx \frac{Gb}{L} = \frac{Gbf^{1/3}}{d_0}\] Therefore, at a constant volume fraction, increasing size results in lower yield strength.
+\end{shaded}
+
+Discussion of microstructure is incomplete without discussing \textbf{particle kinetics}. While a given microstructure might be favorable, there is often a necessary activation energy required to convert a material from one microstructure to a lower energy state. This process is temperature-dependent. For example, diffusivity (in liquids or solids) is given by the (approximate) relationship: \[D = D_0\exp (-q/k_BT) = D_0\exp(-Q/RT)\] where $q$ is the activation barrier, and $Q$ is the activation barrier per mol. The overall rate of a reaction is therefore a function of both thermodynamics and kinetics: the rate is proportional to the kinetic term \textit{mobility}, related to diffusivity, and the thermodynamic term \textit{driving force}, related to the difference between energy well depths $G_A-G_B$ and also determining the direction of the reactions. Assuming $H$ and $S$ are almost constant within the temperature range between states $A$ and $B$, the relationship becomes \[\text{rate}_{A\to B} \propto \underbrace{\exp(-q/k_BT)}_\text{kinetics} \cdot \underbrace{(T_e-T)}_\text{prop. to $G$}\] where $T_e$ is the temperature which results in thermodynamic equilibrium between $A$- and $B$-phase. This proportionality can be transformed into a \textit{time-temperature-transformation} diagram:
+
+\begin{center}
+    \includegraphics[scale=0.31625]{Images/materials_TTT.png}
+\end{center}
+
+The implication of this graph is that there is a critical cooling rate which avoids transformation from $\alpha$ to $\beta$, limited by the kinetics. In general, the cooling rate determines the composition of a material.
+
+%%% Nucleation, crit radius
+
+During phase change from $\alpha$- to $\beta$-phase, a certain energy barrier must be overcome in the formation of precipitate. It can be shown that, for a spherical precipitate droplet of radius $r$, there is an energy benefit proportional to $-r^3$, and an energy cost proportional to $r^2$; then, at low radii, the energy cost dominates and precipitate tends to collapse, while at large radii energy benefit dominates and precipitate will grow. The critical radius of this transformation is given by: \[r^* = \frac{2\gamma_{\alpha\beta}}{\Delta G_{\alpha\beta}} = \frac{2\gamma_{\alpha\beta}T_e}{\Delta H_{\alpha\beta}(T_e-T_1)}\] In other words, there is temperature sensitivity which determines whether random precipitate formations will be able to grow, i.e. initiate a \textit{macroscopic} phase change. The tendency of large precipitate particles to grow is the physical origin of \textit{grain coarsening}, as large precipitate will tend to grow at the expense of small precipitate; the result is, at a given temperature and fixed volume ratio, precipitate will combine to minimize volume, i.e. from several small particles into fewer large particles.
+
+The tendency of individual particles to change phase is \textit{homogeneous} nucleation; this process occurs randomly and without preference to any particular location in a material. In reality, \textit{heterogeneous} nucleation also occurs, with a much lower every barrier and a reduced critical radius $r^*$, at certain preferential sites like grain boundaries or near impurities. 
+
+If diffusive transformations are not allowed to occur, i.e. by a fast-quenching process missing the "nose" of a TTT diagram, the result is an unstable material which results from \textit{displacive} transformation. A \textbf{martensitic transformation} is one class, typical of steel, where large quantities of atoms are displaced in a coordinated manner by the fast-quenching process. 
+
+For iron materials, a key property is that martensite may be achieved by cooling exceeding the critical cooling rate (i.e. missing the nose); this is a transformation from FCC to a sheared BCC-like structure which is unstable. There is high amounts of shear energy stored in this structure, so an increase in temperature has a tendency to reverse plastic deformations.
+
+\begin{shaded}
+    \textbf{Critical Cooling Rate in Steels}. The critical cooling rate exists even in pure iron (and therefore martensite is technically achievable even in pure iron), but the critical cooling rate is very fast (i.e. $\mathcal{O}(10^5)^\circ C/\text{sec})$) and is not realistically achievable. The critical cooling rate is affected by two primary factors: \begin{enumerate}
+        \item[-] \textbf{Material Composition}. Critical cooling rate decreases as impurity concentration increases (i.e. a reduction to $200^\circ C/\text{sec}$ for $0.8\%$ C). This is the primary reason martensite is achievable in carbon steels (or in non-carbon steel alloys) but not in pure iron. The addition of impurities block diffusion and therefore impede kinetics.
+        \item[-] \textbf{Grain Size}. Critical cooling rate increases in fine-grained material. Fine grains have a tendency to block diffusion and therefore impede kinetics.
+    \end{enumerate}
+    Note that cooling rates are not uniform in thick materials, so the critical cooling rate must be exceeded at the surface to achieve the critical cooling rate inside the material.
+\end{shaded}
+
+
+\newpage
+\subsection{Modes of Failure} % lecture 19-30; includes fracture, cracking (corrosion, cyclic), fatigue, creep
+
+Fracture is the separation of a material into two or more parts. Fracture involves crack formation, followed by crack propagation. Ductile fracture occurs with most metals under standard conditions; fracture occurs after yielding and extensive plastic deformation. Brittle (cleavage) fracture occurs in ceramics and very cold metals; fracture occurs before macroscopic yield is observed, and there is very little plastic deformation. Yield occurs in ductile materials due to the formation of microscopic voids; the local stress concentration near these voids is high, so voids tend to grow (i.e. into macroscopic cracks).
+
+Fracture occurs when maximum normal stress, $\sigma_n$, exceeds the \textit{fracture strength} of a material, $\sigma_f$. Fracture strength is a material property. Comparing $\sigma_f$ to $\sigma_Y$ gives a criteria for whether a material behaves in a ductile or brittle manner.
+\begin{enumerate}
+    \item[-] \textbf{Ductile Behavior}. A material exhibits ductile behavior if yielding occurs before fracture; that is, if $\sigma_H\geq \sigma_Y$ and/or $\tau_\text{max}\geq k$ before $\sigma_n \geq \sigma_f$.
+    \item[-] \textbf{Brittle Behavior}. A material exhibits brittle behavior if fracture occurs before yielding; that is, if $\sigma_n\geq \sigma_f$ before $\sigma_H\geq \sigma_Y$ and $\tau_\text{max} \geq k$.
+\end{enumerate}
+
+In real materials, yield strength tends to \textit{decrease} with temperature, while fracture strength is roughly \textit{independent} of temperature. For this reason, at \textbf{low temperature}, a material tends to be more \textbf{brittle}; conversely, at \textbf{high temperature}, a material tends to be more \textbf{ductile}.
+
+Crack propagation can be determined by an energy criterion. In particular, given a pre-existing crack, an external load $P$ doing work $\Delta W$, and a resulting change in strain energy $\Delta U$, the crack will grow (without bound) if $\Delta W - \Delta U$ exceeds the energy cost to increase the crack surface area, approximately given by $\Gamma t\Delta a$ where $\Gamma$ is a material property which describes energy cost, $t$ is material thickness, and $\Delta a$ is a small change in crack width. Under this condition, the material experiences fracture. At a given crack length $a$, it can be shown that the energy release per unit thickness is: \[\Delta\Pi = \frac{\Delta W - \Delta U}{t} = \frac{P^2\Delta C(a)}{2t}\] where $C(a)$ is compliance, which is a function of crack size. The energy release rate, $\mathcal{G}$, is given by \[\mathcal{G} = \frac{\partial \Pi}{\partial a} = \frac{1}{t}\frac{\partial}{\partial a} \left(W-U\right)= \frac{P^2}{2t}\frac{dC}{da} = \frac{P^2}{2\overline{E}t^2}\frac{d}{da}\left[g\left(\frac{a}{b},\frac{L}{b}\right)\right]\] where $g$ is a function of the geometry relating change in surface area to crack size, and $\overline{E}$ is the corrected Young's modulus. In a free-expansion, plane-stress scenario, $\overline{E}=E$; in a plane-strain scenario, i.e. where expansion is constrained, $\overline{E}=\frac{E}{1-\nu^2}$. Critically, fracture occurs if $\mathcal{G}\geq \Gamma$. Note that $\mathcal{G}$ depends on $\overline{E}$, which is a material property; multiplying both sides by $\overline{E}$ separates loading-related terms from material-related terms, resulting in the following (equivalent) criterion for fracture: \[\mathcal{G}\geq \Gamma \iff \frac{P^2}{t^2b}f(a/b,L/b)\geq \overline{E}\cdot\Gamma\tag{Fracture Criterion}\]
+Define $K:=\sqrt{\overline{E}\cdot\mathcal{G}} = \sqrt{\frac{P^2}{t^2b}f(a/b,L/b)}$, which is the stress-intensity factor determined only by loading parameters. Define $K_c:=\sqrt{\overline{E}\cdot\Gamma}$, which is called \textbf{fracture toughness} and is a measured quantity. Then failure alternatively occurs under the following condition: \[K\geq K_c\tag{Alt. Fracture Criterion}\] This expression is useful, because because $K$ may be rewritten as \[K = \sigma_t^\infty \sqrt{a}F\] where $\sigma_t^\infty$ is the far-field stress, $\sqrt{a}$ is the crack-length dependent term, and $F$ is a number which depends on the ratio $a/b$. This fracture criterion is the \textit{Mode I} fracture mode, which is tensile fracture. For this reason, $K$ is often denoted $K_I$, and $K_C$ is often denoted $K_{IC}$ to specify mode 1 fracture. Similarly, a factor of $\sqrt{\pi}$ is often common to $F$, so the expression is often written as $K_{I} = F\sigma_t^\infty \sqrt{\pi a}$.
+
+\begin{shaded}
+    \textbf{Design Against Fracture in Pressure Vessel}. Many engineering designs can be approximated as thin-walled pressure vessels (i.e. an aircraft cabin). A design must be sufficient to prevent both yield and fracture. Therefore, a design must meet the following coupled criteria:
+\[
+    \begin{cases}
+        K_I < K_{IC}\\
+        \sigma_H < \sigma_Y
+    \end{cases}
+\]
+Suppose a crack forms along the length (i.e. in the axial direction). Then, $\sigma_{\theta\theta}$ could pull the crack apart and cause failure. Then, the criteria becomes:
+
+\[
+\begin{cases}
+\frac{PR}{t} < \frac{K_{IC}}{\sqrt{\pi a}}\\
+\frac{PR}{t} < \frac{2}{\sqrt{3}}\sigma_Y
+\end{cases}
+\]
+
+The transition crack length, after which fracture will occur before yield, can be found by rearrangement: \[a_T = \frac{3}{4\pi} \left(\frac{K_{IC}}{\sigma_Y}\right)^2\] 
+
+Cyclic loading can cause crack size to increase during operation; \textit{assuming the same scenario with cracking in the axial direction}, a pressure vessel may be designed to leak before fracture to prevent catastrophic failure. Thus, the requirement is (for a semicircular crack) that crack size exceeds thickness and penetrates the wall \textit{before} fracture occurs. This design requirement for thickness can be found by rearrangement \textit{for fixed pressure} $P$: \[t>\pi\left(\frac{PR}{K_{IC}}\right)^2\] Note that $t$ must \textit{exceed} the right-hand size to ensure leak occurs, which can be shown from rearrangement.
+
+Note that, for a crack perpendicular to the axial direction, the axial stress $\sigma_{zz}$ is the tensile stress on the crack; this affects the failure criteria (by a factor of $1/2$) and slightly changes $a_T$, although irrespective of geometry $a_T\propto (K_{IC}/\sigma_Y)^2$. Similarly, the thickness criteria may have a different pre-factor depending on geometry. However, in a real material, cracks are randomly orientated throughout a material; an effective design against failure must prevent crack propagation in the worst-case scenario. Cracks in the axial direction experience the largest tensile force, and are therefore most susceptible to crack propagation; therefore, designing against propagation of axially-aligned cracks is a conservative design.
+\end{shaded}
+
+%%% Stress field and critical radius; note that theoretical elastic stress -> inf near crack tip; in practice, the material supports finite stress b.c. some material has already yielded near the crack, i.e. the theoretical linear assumption is bad.
+
+%% Different math (same Ki/SigmaY factor) in both plane strain and plane stress scenarios; plane stress for very small thickness (able to strain freely b.c. minimum resistance), plane strain for very large thickness (larger volume constrains z-axis strain). Note: near material surface in general is "plane stress", and near material center is "plane strain".
+
+%%% Facture toughness LARGER in plane stress than in plane strain (greater resistance to crack growth)
+
+In many brittle materials, the critical crack length is so small that random, naturally occurring cracks in the material may cause material failure. Therefore, the question of whether a material (especially brittle material) survives is a question of probability. The survival probability for a given sample of volume $V_0$ under a stress $\sigma$ is given by: \[P_s(V) = \exp\left[-\frac{1}{V_0S_0^m}\int_V\sigma^mdV\right]\] The quantities $m$ and $S_0$ are material properties, where $S_0$ is the \textit{Weibull parameter} at $V_0$, and $m$ is a material-dependent exponent. If surface flaws dominate, the integral is instead given by: \[P_s(A)=\exp\left[-\frac{1}{A_0S_0^m}\int_A\sigma^mdA\right]\] In this expression, $A_0$ is the normalizing area. Note that, for large $m$, the probability of survival approaches a step function; ductile materials, such as steels, have large $m$ (i.e. on $O\left(10^3\right)$, and therefore it is typically acceptable to treat these materials deterministically. Other materials, like cements or ceramics have lower $m$ (i.e. between $5$ and $10$) and therefore must be treated statistically.
+
+\newpage
+
+Often, \textit{pre-existing cracks} which are subjected to some stress have a tendency to \textit{grow} with time. The two main mechanisms for this are \textit{stress-corrosion cracking} and \textit{cyclic loading}.
+
+\textbf{Stress-Corrosion Cracking} has the following main stages:
+\begin{enumerate}
+    \item[Stage 0.] Below a certain stress-intensity threshold, no stress-corrosion cracking occurs.
+    \item[Stage 1.] Crack velocity depends on reaction rate at the crack tip: \[\frac{da}{dt}=AK_I^n,\hspace{0.25in}A=A_0\exp(-Q_I/RT)\]
+    \item[Stage 2.] Crack velocity is limited by reactant diffusion to the crack tip: \[\frac{da}{dt} = B\hspace{0.25in}B=B_0\exp(-Q_{II}/RT)\]
+    \item[Stage 3.] Fast fracture, which occurs irrespective of reactions; $\frac{da}{dt}\to\infty$ as $K_I\to K_{IC}$. This is the same physics as general fast fracture, which have already been discussed.
+\end{enumerate}
+Stage 2 occurs if neighboring oxygen molecules (or another compound causing oxidation) are in excess; as humidity and/or temperature increases, the oxidation reaction happens more readily, and reactant diffusion may cease to be a bottleneck. In this case, stage 2 crack propagation may not be present. A representative crack propagation velocity curve for a stress-corrosion cracking scenario is shown below:
+\begin{center}
+    \includegraphics[scale=0.35]{Images/materials_corrosion.png}
+\end{center}
+
+\textbf{Cyclic loading} occurs whenever stress is a function of time; for example, this occurs in automotive and aerospace applications, as well as in many static applications where loads are not constant (i.e. bridges, which are constantly loaded and unloaded by traffic). In general, the mechanism for crack propagation under cyclic loading is the time-dependent change in $K_I$. Of particular interest is the maximum change in $K_I$, given by the difference between maximum and minimum \textit{tensile load} applied to the specimen: \[\Delta K = F(\sigma_\text{max}-\sigma_\text{min})\sqrt{\pi a}\]  Note that $\sigma_\text{min}\geq 0$ because compressive stress does not contribute to crack growth; therefore, if the stress $\sigma(t)$ is compressive for some time, $\sigma_\text{min}$ is taken to be $0$ and $\Delta\sigma = \sigma_\text{max}$. 
+
+\newpage
+
+In general, the crack growth rate $\frac{da}{dN}$ for cyclic loading, which is the change in crack size per number of cycles, has three distinct phases:
+\begin{enumerate}
+    \item[Stage 1.] Almost no growth below a certain threshold; that is, $\Delta K_I<\Delta K_{th} \implies \frac{da}{dN}\approx 0$.
+    \item[Stage 2.] Crack growth follows a power-law relationship, known as \textbf{Paris' Law}: \[\frac{da}{dN} = A(\Delta K_I)^m\] where $m$ and $A$ are material parameters. 
+    \item[Stage 3.] Fast fracture, which occurs if $K_\text{max}>K_{IC}$, i.e. when $\sigma(t)$ is sufficiently large to cause fracture for some $t$.
+\end{enumerate}
+
+A representative crack propagation curve for cyclic loading is shown below:
+
+\begin{center}
+    \includegraphics[scale=0.4]{Images/materials_cyclicloading.png}
+\end{center}
+
+Even without a pre-existing crack, materials may still fail under cyclic loading. This phenomenon is called \textbf{fatigue}.
+
+Crack initiation due to fatigue has two stages. First, in any material, there is some dislocation; cyclic loading can cause local dislocation motion, which causes nucleation of cracks. In the second stage, the crack nucleate will grow perpendicular to applied stresses according to Paris' law. Once a crack appears, lifetime is generally relatively short (i.e. on the order of 10000 cycles or fewer); on the other hand, initial crack nucleation may take many cycles. Therefore, the lifespan of a part with no pre-existing cracks is dominated by the time of crack initiation.
+
+There are two modes of fatigue: \textit{low-cycle}, and \textit{high-cycle}. In low-cycle fatigue, nominal stress is sufficiently low that plastic deformation does not occur, i.e. nominal stress is less than $\sigma_Y$. In high-cycle fatigue, nominal stress exceeds yield strength $\sigma_Y$; the resulting plastic deformation drastically shortens the lifespan of a part. In general, the transition point between low-cycle and high-cycle fatigue occurs around $10^3$ or $10^4$ cycles. The \textit{fatigue limit}, or \textit{endurance limit}, denoted $\sigma_e$, is the stress amplitude below which fatigue in effect does not occur; for amplitudes below $\sigma_e$, one can expect at least $10^7$ to $10^8$ cycles before failure. Fatigue strength is often defined as the stress amplitude which gives a certain fatigue life. 
+
+\textbf{High-cycle fatigue} for a \textbf{fully-reversed signal} is described by \textbf{Basquin's Law}: \[\sigma_{ar} N_f^a = C_1\tag{Basquin's Law}\] In Basquin's Law, $\sigma_{ar}<\sigma_Y$ is the \textbf{fully-reversed stress amplitude} (meaning mean stress of 0), $N_f$ is fatigue life (cycles until failure), and $a$ and $C_1$ are material properties.
+
+\textbf{Low-cycle fatigue} for a \textbf{fully-reversed signal} is described by the \textbf{Coffin-Manson Law}: \[\Delta\varepsilon_{pl}N_f^b = C_2\tag{Coffin-Manson Law}\] The control variable here is the plastic deformation $\Delta \varepsilon_{pl}$ per cycle. This law quantifies the accumulation of plastic deformation when operating at a stress beyond $\sigma_Y$ but below fracture.
+
+Because a material experiencing low-cycle fatigue has already yielded, most systems are designed for high-cycle fatigue (i.e. the system is already considered failed if yield has occurred). This motivates an extension of Basquin's Law to predict failure given real stress signals, i.e. including signals which are \textit{not} fully reversed. This generalization is done by calculating a \textit{conservative}, equivalent "fully-reversed stress" by normalizing the stress amplitude and mean stress. This normalization is known as \textbf{Goodman's Law}: \[\begin{cases}
+    \displaystyle\frac{\sigma_a}{\sigma_{ar}} + \frac{\sigma_m}{\sigma_u} = 1 & \text{conservative if }\sigma_m > 0\\
+    \\
+    \displaystyle\frac{\sigma_a}{\sigma_{ar}} = 1 & \text{conservative if }\sigma_m<0
+\end{cases}\] where $\sigma_u$ is the ultimate tensile strength for a material. Goodman's Law is conservative in that it predicts a shorter lifetime than reality. 
+
+In reality, most systems experience \textit{non-uniform} signals. In general, many different amplitudes may occur for different numbers of cycles. The \textbf{Palmgren-Miner Rule} gives a criterion for failure with non-uniform cycles: \[\sum_i \frac{N_i}{N_{f,i}} = \frac{N_1}{N_{f,1}} + \frac{N_2}{N_{f,2}} + \dots = 1\tag{Palmgren-Miner Rule}\] In other words, each $\frac{N_i}{N_{f,i}}$ moves the part some fraction closer to failure, until 100\% failure is achieved. Essentially, the Palmgren-Miner rule tracks damage to a part, and fracture occurs when this damage reaches 100\%, or 1.
+
+Another time-dependent mode of failure is \textbf{creep}. Creep is time-dependent, \textit{shear-driven} deformation. A typical creep curve has three distinct stages: \begin{enumerate}
+    \item[] Primary Stage. Nonlinear region involving complicated deformation behavior due to microstructure.
+    \item[] Secondary Stage (\textit{Steady-State Creep}. Strain rate $d\varepsilon /dt$ is constant at given $\sigma$ and $T$. This stage is very dependent on temperature, with an exponential increase in strain rate with temperature increase.
+    \item[] Tertiary Stage. Accumulated damage, such as cracking, rapidly increases strain nonlinearly with time and leads to creep rupture.
+\end{enumerate}
+In general, if a material has a melting temperature $T_M$, creep becomes observable on short timescales when the material is deployed at 30\% to 50\% of the melting temperature.
+
+Creep may be linear or nonlinear, depending on the material and loading conditions. Linear creep is given by the following relationship: \[\frac{d\gamma_{xy}}{dt} = \frac{\tau_{xy}}{\eta},\hspace{0.3in}\text{where }\eta = \frac{\text{shear stress}}{\text{strain rate}}\] The viscosity $\eta$ decreases at $T$ increases, because $\eta(T)\propto \exp\left(\frac{Q}{RT}\right)$. Because creep is a shear-driven process, it is related to von Mises (or Tresca) stress. It can be shown that, for an effective stress $\sigma_H$, the effective strain is given by: \[\varepsilon_H = \sqrt{\frac{2}{9}\left[(\varepsilon_1-\varepsilon_2)^2+(\varepsilon_1-\varepsilon_3)^2+(\varepsilon_2-\varepsilon_3)^2\right]}\] Substituting values, it can be shown that the strain rate is given by: \[\frac{d\varepsilon_H}{dt} = \frac{\sigma_H}{3\eta}\] Note that, for a specimen experiencing uniaxial tension (in the $x$-direction), $\sigma_H = \sigma_{xx}$.
+
+Nonlinear creep, also known as power-law creep, is also related to $\sigma_H$. The following relationship gives the strain rate for a specimen: \[\frac{d\varepsilon_H}{dt} = A\sigma_H^n = \dot\varepsilon_0 \left(\frac{\sigma_H}{\sigma_0}\right)^n\] In this equation, $n$ and $A$ (or $\sigma_0$) are material parameters for creep, and $\dot\varepsilon_0$ is a dimensionalizing parameter typically defined as $1 \cdot \text{s}^{-1}$. $A$ is an energy barrier, of the form $A=A_0\exp(-Q/RT)$. It can be shown that, in pure shear, creep is given by \[\frac{\gamma_{xy}}{dt} = \dot\varepsilon_0 (\sqrt{3})^{n+1}\left(\frac{\tau_{xy}}{\sigma_0}\right)^n\] In any case, a specimen which is loaded experiences an initial, instantaneous strain (or deflection) which can be determined by standard static analysis, as well as a time-dependent, viscous strain (or deflection), determined by the creep of a material. The summation of these two gives the total strain (or deflection) with time.
+
+\subsection{Polymers and Composite Materials} % lecture 31-35
+
+A \textbf{polymer} is distinguished by its long-chain atomic structure, formed from linking together monomers, resulting in a chain where each link has the form CH$_2$. Carbon atoms have a tendency to share electrons, resulting in a single bond between neighboring carbons and the formation of a monomer chain (a polymer). Polymers typically fall in one of three categories:
+\begin{enumerate}
+    \item[] \textbf{Thermoplastics}. Polymer is formed by long chains, held together by only hydrogen and/or Van der Walls bonding between chains. Chains are disconnected, and can slide past each other at high temperatures. This structure can be melted and recast. \begin{enumerate}
+        \item[-] Chains tend to fold to reach energy-efficient state, resulting in a crystalline structure. The crystalline structure can break down due to branching, resulting in a lower density amorphous region.
+        \item[-] Examples of thermoplastics include high-density polyethylene (HDPE) and low-density polyethylene (LDPE).
+    \end{enumerate}
+    \item[] \textbf{Thermosets}. Polymer is formed by covalent cross-linked structure. Structure is very rigid and does not significantly deform. This structure cannot be recast after melting, as a melting process breaks the covalent bonds. \begin{enumerate}
+        \item[-] Cross-links tend to form by introduction of an activator molecule, which allows two polymers to connect due to a chemical reaction at some site on the molecule.
+        \item[-] Examples include polyesters and some epoxies.
+    \end{enumerate}
+    \item[] \textbf{Elastomers}. Polymer is formed by a few covalent cross-links. Stronger bonds (covalent) compared to thermoplastics, and fewer links compared to thermosets, so material may deform significantly with a "memory" of its original shape. Cannot be recast after melting because melting breaks the covalent bonds. \begin{enumerate}
+        \item[-] Formed by same mechanism as thermosets, but with much lower concentration of activator. Results in nearly linear polymers with some occasional cross-links.
+    \end{enumerate}
+\end{enumerate}
+Recall that $E$ is proportional to  the Gibbs free energy for a material. While entropy is negligible for crystalline structures (i.e. ductile materials), it makes a significant contribution for polymer structures. In particular, polymer chains are naturally disordered; stretching of the chains, i.e. by applying a stress, reduces this disorder and is therefore resisted by the material's tendency to maximize entropy.
+
+A \textbf{composite} material is a combination of two or more materials. Typically, composite materials are designed to give better material performance per weight. A key example in this category is carbon fiber, which is a resin-fiber composite. In this example, however, the strength of the material depends on the fiber direction, and the material is therefore \textit{orthotropic}, meaning Young's modulus, shear modulus, and Poisson's ratio differ in each direction.
+\newpage
+\begin{framed}
+    \textbf{Derivation of Composite Modulus}. Consider a composite material with cross-sectional area $A_c$ consisting of fibers with isotropic modulus $E_f$ and cross-section $A_f$, and a matrix with modulus $E_m$ and cross-section $A_m$. Suppose the volume fraction of fiber is $f$.
+
+    Suppose loading by force on the composite $F_c$ is carried out in the direction of the fibers. Then, the fiber and matrix experience the same strain, so $\varepsilon_c =\varepsilon_f = \varepsilon_m$. Then: \begin{eqnarray*}
+        F_c &=& \sigma_C A_c\\
+        &=& \sigma_f A_f + \sigma_m A_m\\
+        &=& f A_c \sigma_f + (1-f)A_c \sigma_m\\
+    \implies \sigma_c &=& f\sigma_f + (1-f)\sigma_m\\
+    &=& f \varepsilon_f E_f + (1-f)\varepsilon_mE_m\\
+    &=& f \varepsilon_c E_f + (1-f)\varepsilon_c E_m\\
+    \implies \sigma_c/\varepsilon_c = E_c &=& f E_f + (1-f) E_m
+    \end{eqnarray*} Therefore, loading in the direction of the fibers is characterized by a Young's modulus of $E_c = f E_f + (1-f)E_m$. Suppose now that $F_c$ is applied perpendicular to the direction of the fibers. Then, the stress experienced by the fibers and the matrix must be the same. Suppose $l_c$ is the length of the composite, and each fiber has length $l_f$ separated by a matrix length $l_m$. Then: \begin{eqnarray*}
+        \Delta l_f &=& l_f\varepsilon_f\\
+        &=& l_f \frac{\sigma_f}{E_f}\\
+        &=& l_f \frac{\sigma_c}{E_f}
+    \end{eqnarray*} The exact same process shows that the matrix has: \[\Delta l_m = l_m \frac{\sigma_c}{E_m}\]
+    Then: \begin{eqnarray*}
+        \varepsilon_c &=& \frac{\Delta l_c}{l_c}\\
+        &=& \frac{\Delta l_f + \Delta l_m}{l_c}\\
+        &=& \sigma_c \left(\frac{f}{E_f}+ \frac{1-f}{E_m}\right)\\
+    \implies \sigma_c/ \varepsilon_c  = E_c &=& \left(\frac{f}{E_f} + \frac{1-f}{E_m}\right)^{-1}
+    \end{eqnarray*} The contribution to Young's modulus in this case is nonlinear. This is the origin of orthotropic behavior, which emerges even when combining two isotropic materials. 
+\end{framed}
+
+This derivation gives an upper-bound and lower-bound for Young's modulus, as a function of the material composition and the elastic modulus of the matrix and fiber separately: \[\left(\frac{f}{E_f}+\frac{1-f}{E_m}\right)^{-1} \leq E_c \leq  fE_f + (1-f)E_m\] The lower-bound is attained when forces are applied perpendicular to the fibers, and the upper-bound is attained when forces are applied parallel to the fibers. For loads applied off-axis, the behavior of the composite can only be derived with the isotropic Hooke's law and stress and/or strain transformations.

@@ -218,3 +218,63 @@ Planar Rigid Body Vibrations
     \item[] Steady-State Amplitude of Response, Base Excitations \[X = x_0\sqrt{\frac{1+(2\zeta\eta)^2}{(2\zeta\eta)^2+(1-\eta^2)^2}}\]
 \end{enumerate}
 \end{multicols*}
+
+\textbf{Fluid Mechanics}
+\vspace{-1em}
+\begin{center}
+\begin{minipage}{\linewidth}
+\begin{multicols*}{2}[]
+Fluid Properties \begin{enumerate}
+\item[] Shear \[\tau = \mu \frac{du}{dy}\]
+\item[] Kinematic Viscosity \[\nu = \frac{\mu}{\rho}\]
+\end{enumerate}
+\vspace{-2em}
+Fluid Statics \begin{enumerate}
+    \item[] Hydrostatic Equation \[P = P_\text{atm} + \rho g h\]
+    \item[] Resultant Force of Hydrostatics \[F_R = \rho gh_cA\]
+    \item[] Center of Pressure \[(x_R,\ y_R) = \left(\frac{I_{xy,c}}{Ay_c}+x_c,\ \frac{I_{x,c}}{y_cA}+y_c\right)\]
+    \item[] Buoyant Force \[F_b = \rho_\text{fluid}gV_\text{displaced}\]
+\end{enumerate}
+\vspace{-1em}
+Fluid Kinematics
+\begin{enumerate}
+    \item[] Acceleration of a Fluid \[\vec{a} = \frac{D}{Dt}(\vec{v}) = \frac{\partial \vec{v}}{\partial t} + (\vec{v}\cdot\nabla)\vec{v}\]
+    \item[] Streamline Equation \[\frac{dy}{dx} = \frac{v}{u}\]
+    \item[] Pathline Equations \[\frac{dx}{dt} = u,\hspace{0.25in}\frac{dy}{dt}=v\]
+    \item[] Stream Function \[\frac{\partial \psi}{\partial y} = u,\hspace{0.25in}\frac{\partial\psi}{\partial x} = -v\]
+\end{enumerate}
+\end{multicols*}
+\end{minipage}
+\end{center}
+\textbf{Bernoulli Equation}
+\[P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 = P_2 + \frac{1}{2}\rho v_2^2 + \rho gh_2 + \underbrace{\int_{s_1}^{s_2}\frac{\partial v}{\partial t}ds}_\text{neglect if steady}\tag{Unsteady Bernoulli Equation}\]
+\vspace{-0.5em}
+\textbf{Control Volume Analysis}
+\vspace{-1em}
+\[\frac{\partial}{\partial t}\int_{CV} \rho dV + \int_{CS}\rho (\vec{v}-\vec{v}_{CV})\cdot\hat{n} dA = 0\tag{Conservation of Mass}\] 
+\vspace{-0.5em}
+\[\frac{\partial}{\partial t}\int_{CV} \rho \vec{v} dV + \int_{CS} \rho \vec{v}[(\vec{v}-\vec{v}_{CV})\cdot \hat{n}]dA = -\int P \hat{n} dA + \int_{CV}\rho \vec{g} dV + \vec{F}_\text{viscous} +  \vec{F}_\text{ext}\tag{Conservation of Momentum}\]
+\[\frac{\partial}{\partial t}\int_{CV} \rho e dV + \int_{CS} \rho e (\vec{v}-\vec{v}_{CV})\cdot \hat{n} dA = \dot Q_\text{net,in} + \dot W_\text{shaft,in} -\int P(\vec{v}-\vec{v}_{CV})\cdot \hat{n} dA\tag{Conservation of Energy}\]
+\[\frac{P_\text{out}}{\rho}+\frac{1}{2}v_\text{out}^2 + gz_\text{out} = \frac{P_\text{in}}{\rho} + \frac{1}{2}v_\text{in}^2 + gz_\text{in} + w_\text{shaft,in} - \underbrace{(\hat{u}_\text{out}-\hat{u}_\text{in}-q_\text{net,in})}_\text{losses}\tag{Extended Bernoulli Equation}\]
+\textbf{Differential Analysis, Rectangular Coordinates}
+\begin{align*}
+    \frac{\partial\rho}{\partial t} +\nabla\cdot (\rho\vec{v}) = 0\ \xrightarrow[]{\text{if incompressible}}& \ \nabla\cdot\vec{v}:=\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}+\frac{\partial w}{\partial z} = 0\tag{Continuity}\\
+    \frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z} &= -\frac{1}{\rho}\frac{\partial p}{\partial x} + \nu\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} + \frac{\partial^2 u}{\partial z^2}\right) + g_x\tag{$x$}\\
+    \frac{\partial v}{\partial t} + u \frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z} &= -\frac{1}{\rho}\frac{\partial p}{\partial y} + \nu\left(\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2} + \frac{\partial^2 v}{\partial z^2}\right) + g_y\tag{$y$}\\
+    \frac{\partial w}{\partial t} + u \frac{\partial w}{\partial x} + v\frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z} &= -\frac{1}{\rho}\frac{\partial p}{\partial z} + \nu\left(\frac{\partial^2 w}{\partial x^2} + \frac{\partial^2 w}{\partial y^2} + \frac{\partial^2 w}{\partial z^2}\right) + g_z\tag{$z$}
+\end{align*}
+\textbf{Differential Analysis, Polar Coordinates}
+\begin{align*}
+    \frac{1}{r}\frac{\partial}{\partial r}(rv_r) + \frac{1}{r}\frac{\partial v_\theta}{\partial\theta} + \frac{\partial v_z}{\partial z} &= 0\tag{Incompressible Continuity}\\
+    \rho\left(\frac{\partial v_r}{\partial t} + v_r \frac{\partial v_r}{\partial r} + \frac{v_\theta}{r}\frac{\partial v_r}{\partial \theta} - \frac{v_\theta^2}{r} + v_z \frac{\partial v_r}{\partial z}\right) &= -\frac{\partial p}{\partial r}+\mu \left[\frac{1}{r}\frac{\partial}{\partial r} \left(r \frac{\partial v_r}{\partial r}\right) - \frac{v_r}{r^2} + \frac{1}{r^2} \frac{\partial^2 v_r}{\partial \theta^2} - \frac{2}{r^2}\frac{\partial v_\theta}{\partial \theta} + \frac{\partial^2 v_r}{\partial z^2}\right] + \rho g_r\tag{$r$}\\
+    \rho\left(\frac{\partial v_\theta}{\partial t} 
+    + v_r \frac{\partial v_\theta}{\partial r} 
+    + \frac{v_\theta}{r}\frac{\partial v_\theta}{\partial \theta} 
+    + \frac{v_\theta v_r}{r} + v_z \frac{\partial v_\theta}{\partial z}\right) 
+    &= -\frac{1}{r}\frac{\partial p}{\partial\theta} + \mu \left[\frac{1}{r}\frac{\partial}{\partial r} \left(r \frac{\partial v_\theta}{\partial r}\right) 
+    - \frac{v_\theta}{r^2} 
+    + \frac{1}{r^2} \frac{\partial^2 v_\theta}{\partial \theta^2} 
+    + \frac{2}{r^2}\frac{\partial v_r}{\partial \theta} 
+    + \frac{\partial^2 v_\theta}{\partial z^2}\right] + \rho g_\theta\tag{$\theta$}\\
+        \rho\left(\frac{\partial v_z}{\partial t} + v_r\frac{\partial v_z}{\partial r} + \frac{v_\theta}{r}\frac{\partial v_z}{\partial \theta} + v_z\frac{\partial v_z}{\partial \theta}\right) &= -\frac{\partial p}{\partial z} + \mu\left[\frac{1}{r}\frac{\partial}{\partial r}\left(r\frac{\partial v_z}{\partial r}\right) + \frac{1}{r^2}\frac{\partial^2 v_z}{\partial\theta^2} + \frac{\partial^2 v_z}{\partial z^2}\right] + \rho g_z\tag{$z$}
+\end{align*}
