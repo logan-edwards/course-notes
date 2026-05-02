@@ -14,6 +14,7 @@
 \usepackage{tikz}
 \usepackage{amscd}
 
+
 \usepackage[shortlabels]{enumitem}
 
 \setlength{\parskip}{\baselineskip}%
@@ -36,15 +37,24 @@
 \usepackage{framed}
 
 \renewcommand{\qedsymbol}{$\blacksquare$}
+\newcommand{\Res}{\mathop{\mathrm{Res}}}
 
 \begin{document}
 
 \definecolor{shadecolor}{gray}{0.9}
 
+
 \tableofcontents
+
+
+%%%%% NOTE TO SELF:
+%%%%% do not change anything/any settings/defns in main.tex,
+%%%%% i.e. do not change line spacing or styling,
+%%%%% this will break every old file; change it within each file
 
 \include{1 Linear Algebra}
 \include{2 Real Analysis}
 \include{3 Topology}
+\include{4 Complex Analysis}
 
 \end{document}
